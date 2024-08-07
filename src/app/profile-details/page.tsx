@@ -4,7 +4,7 @@ type Props = {}
 
 function page({}: Props) {
   return (
-    <div>Personal Profile details page</div>
+    <div className='flex flex-row justify-center items-center'>Personal Profile details page</div>
   )
 }
 
