@@ -24,7 +24,7 @@ const HeaderLinks: React.FC = () => {
                 )}
             >
                 <FiLink height={15.63} width={15.63} />
-                <span className="font-semibold">Links</span>
+                <span className="font-semibold hidden sm:inline-block">Links</span>
             </Link>
 
             <Link
@@ -37,7 +37,7 @@ const HeaderLinks: React.FC = () => {
                 )}
             >
                 <CgProfile height={15.63} width={15.63} />
-                <span className="font-semibold capitalize">Profile Details</span>
+                <span className="font-semibold capitalize hidden sm:inline-block">Profile Details</span>
             </Link>
         </nav>
     );
