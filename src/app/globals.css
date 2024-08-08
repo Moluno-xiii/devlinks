@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer utilities {
-  .btn-secondary {
+  /* .btn-secondary {
     @apply focus:bg-light-purple rounded-lg border border-primary bg-white text-center font-semibold capitalize text-primary transition-all duration-300 h-[46px];
   }
 
@@ -12,6 +12,6 @@
   }
   .btn-primary {
     @apply rounded-lg bg-primary h-[46px] text-center font-semibold capitalize text-white transition-all duration-300 focus:bg-purple-hover focus:text-opacity-25;
-  }
+  } */
 }
 

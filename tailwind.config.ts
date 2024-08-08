@@ -17,6 +17,7 @@ const config: Config = {
         lightGrey: "#FAFAFA",
         lightWhite: "#F7F7F7",
         borders: "#D9D9D9",
+        blue: "#2D68FF",
         "light-purple": "#EFEBFF",
         "purple-hover" : "#BEADFF"
       },
