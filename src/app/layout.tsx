@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Sans } from "next/font/google";
+import { Inter, Instrument_Sans, Roboto } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
-const instrument_sans = Instrument_Sans({ subsets: ["latin"] });
+const instrument_sans = Instrument_Sans({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   title: "devlinks",

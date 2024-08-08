@@ -14,3 +14,4 @@
     @apply rounded-lg bg-primary h-[46px] text-center font-semibold capitalize text-white transition-all duration-300 focus:bg-purple-hover focus:text-opacity-25;
   }
 }
+
