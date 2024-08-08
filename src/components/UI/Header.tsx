@@ -2,8 +2,6 @@
 import Button from "@/components/UI/Button"
 import HeaderLinks from "@/components/header/HeaderLinks";
 import HeaderLogo from "@/components/header/HeaderLogo";
-import Image from "next/image";
-import Link from "next/link";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 
 const Header: React.FC = () => {
