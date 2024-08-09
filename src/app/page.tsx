@@ -1,8 +1,8 @@
-import { Button, Input } from "@nextui-org/react";
+
 import Image from "next/image";
 import Link from "next/link";
-import { IoLockClosed, IoMail } from "react-icons/io5";
-const placement = "outside";
+
+import LoginForm from "./LoginForm"
 export default function Home() {
   return (
     <main className="mx-auto h-[100dvh] leading-[150%] text-dark-gray max-sm:m-10 sm:flex sm:max-w-[476px] sm:flex-col sm:items-center sm:justify-center">
@@ -18,36 +18,7 @@ export default function Home() {
           </span>
         </section>
 
-        <form action="" className="flex flex-col items-center gap-y-2 sm:px-8">
-          <Input
-            key="outside"
-            type="email"
-            label="Email"
-            isRequired
-            labelPlacement="outside"
-            description="e.g adekola@gmail.com"
-            variant="faded"
-            endContent={<IoMail />}
-          />
-
-          <Input
-            variant="faded"
-            label="Password"
-            type="password"
-            key="outside"
-            labelPlacement="outside"
-            isRequired
-            endContent={<IoLockClosed />}
-          />
-          <Button
-            variant="solid"
-            color="primary"
-            type="submit"
-            className="w-full text-base mt-4 font-semibold"
-          >
-            Login
-          </Button>
-        </form>
+<LoginForm />
 
         <div className="mt-6 flex flex-col items-center gap-x-1 sm:flex-row sm:justify-center">
           <span>{"Don't"} have an account?</span>

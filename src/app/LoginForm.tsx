@@ -5,36 +5,34 @@ import { Button, Input } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import FormValidationError from "@/components/UI/FormValidationError";
 type Props = {};
-
-interface CreateAccountFormData {
-  email: string;
+interface LoginFormData {
   password: string;
-  confirmPassword: string;
+  email: string;
 }
-const CreateAccountForm = (props: Props) => {
+const LoginForm = (props: Props) => {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
-  } = useForm<CreateAccountFormData>();
+  } = useForm<LoginFormData>();
 
-  const onSubmit = (data: CreateAccountFormData) => {
+  const onSubmit = (data: LoginFormData) => {
     console.log(data);
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col items-center gap-y-2 sm:px-8"
     >
       <Input
-        variant="faded"
+        type="email"
         label="Email"
-        endContent={<IoMail />}
-        type="text"
-        description="e.g osinachi@gmail.com"
-        labelPlacement="outside"
         isRequired
+        labelPlacement="outside"
+        description="e.g adekola@gmail.com"
+        variant="faded"
+        endContent={<IoMail />}
         {...register("email", {
           required: "Email is required",
           pattern: {
@@ -46,14 +44,13 @@ const CreateAccountForm = (props: Props) => {
       {errors.email && (
         <FormValidationError errorMessage={errors.email.message as string} />
       )}
-
       <Input
-        type="password"
-        label="Create Password"
-        isRequired
-        labelPlacement="outside"
-        description="At least 8 characters"
         variant="faded"
+        label="Password"
+        type="password"
+        labelPlacement="outside"
+        isRequired
+        endContent={<IoLockClosed />}
         {...register("password", {
           required: "Password is required",
           minLength: {
@@ -61,39 +58,20 @@ const CreateAccountForm = (props: Props) => {
             message: "Password must be at least 8 characters long",
           },
         })}
-        endContent={<IoLockClosed />}
       />
       {errors.password && (
         <FormValidationError errorMessage={errors.password.message as string} />
       )}
-      <Input
-        type="password"
-        label="Confirm Password"
-        isRequired
-        labelPlacement="outside"
-        description="At least 8 characters"
-        variant="faded"
-        {...register("confirmPassword", {
-          required: "Please confirm your password",
-          validate: (value) =>
-            value === getValues("password") || "Passwords do not match",
-        })}
-        endContent={<IoLockClosed />}
-      />
-      {errors.confirmPassword && (
-        <FormValidationError errorMessage={errors.confirmPassword.message as string} />
-      )}
-
       <Button
         variant="solid"
         color="primary"
         type="submit"
         className="mt-4 w-full text-base font-semibold"
       >
-        Create Account
+        Login
       </Button>
     </form>
   );
 };
 
-export default CreateAccountForm;
+export default LoginForm;
