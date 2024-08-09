@@ -4,12 +4,15 @@ import { IoLockClosed, IoMail } from "react-icons/io5";
 import { Button, Input } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import FormValidationError from "@/components/UI/FormValidationError";
+import { createUserAccount } from "../../../appwrite";
+import { FaUserAlt } from "react-icons/fa";
 type Props = {};
 
 interface CreateAccountFormData {
-  email: string;
+  email: `${string}@${string}.${string}`;
   password: string;
   confirmPassword: string;
+  name: string;
 }
 const CreateAccountForm = (props: Props) => {
   const {
@@ -20,7 +23,9 @@ const CreateAccountForm = (props: Props) => {
   } = useForm<CreateAccountFormData>();
 
   const onSubmit = (data: CreateAccountFormData) => {
+    const { email, password, name } = data;
     console.log(data);
+    createUserAccount({ email, password, name });
   };
   return (
     <form
@@ -45,6 +50,25 @@ const CreateAccountForm = (props: Props) => {
       />
       {errors.email && (
         <FormValidationError errorMessage={errors.email.message as string} />
+      )}
+
+      <Input
+        variant="faded"
+        label="Username"
+        endContent={<FaUserAlt />}
+        type="text"
+        labelPlacement="outside"
+        isRequired
+        {...register("name", {
+          required: "Enter a valid username",
+          pattern: {
+            value: /^[a-zA-Z0-9._]{3,20}$/,
+            message: "Invalid user name",
+          },
+        })}
+      />
+      {errors.name && (
+        <FormValidationError errorMessage={errors.name.message as string} />
       )}
 
       <Input
@@ -81,7 +105,9 @@ const CreateAccountForm = (props: Props) => {
         endContent={<IoLockClosed />}
       />
       {errors.confirmPassword && (
-        <FormValidationError errorMessage={errors.confirmPassword.message as string} />
+        <FormValidationError
+          errorMessage={errors.confirmPassword.message as string}
+        />
       )}
 
       <Button
