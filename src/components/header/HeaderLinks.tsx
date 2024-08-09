@@ -28,7 +28,7 @@ const HeaderLinks: React.FC = () => {
             </Link>
 
             <Link
-                href="/profile-details"
+                href="/profile"
                 className={clsx(
                     "rounded-xl px-[27px] py-[11px] hover:text-primary flex items-center gap-x-1",
                     isActiveRoute("/profile-details")

@@ -2,7 +2,6 @@ import { Button } from "@nextui-org/react";
 import { Avatar } from "antd";
 import React from "react";
 import {
-  FaArrowRight,
   FaFreeCodeCamp,
   FaGithub,
   FaLinkedin,
@@ -10,22 +9,16 @@ import {
 } from "react-icons/fa";
 import ButtonLink from "./ButtonLink";
 import { SiCodewars } from "react-icons/si";
+import Header from "./Header";
 
 type Props = {};
 
 const page = (props: Props) => {
   return (
     <div className="flex flex-col items-center justify-center p-4">
-      <header className="flex z-10 w-full flex-row items-center justify-center gap-x-2 md:rounded-md p-4 md:justify-between bg-white">
-        <Button className="w-40" variant="bordered" color="primary">
-          Back to Editor
-        </Button>
-        <Button className="w-40" color="primary" variant="shadow">
-          Share Link
-        </Button>
-      </header>
+      <Header />
 
-      <main className="mx-auto z-10 mt-36 flex flex-col items-center overflow-y-auto rounded-xl py-3 shadow-md md:h-[560px] md:w-[350px] bg-white">
+      <main className="z-10 mx-auto mt-36 flex flex-col items-center overflow-y-auto py-3 md:h-[560px] md:w-[350px] md:rounded-xl md:bg-white md:shadow-md">
         <div className="mb-14 flex flex-col gap-y-6">
           <Avatar
             shape="circle"
@@ -62,8 +55,7 @@ const page = (props: Props) => {
           />
         </div>
       </main>
-      <div className="left-0 right-0 top-0 absolute h-[357px] rounded-b-[32px] bg-primary">
-      </div>
+      <div className="file absolute left-0 right-0 top-0 hidden h-[357px] rounded-b-[32px] bg-primary md:block"></div>
     </div>
   );
 };
