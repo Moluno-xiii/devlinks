@@ -73,13 +73,13 @@ const _links: LinkItem[]= [
 
 const Link = (props: Props) => {
   return (
-    <li className="mx-auto flex h-[228px] w-[295px] flex-col gap-y-3 p-5 rounded-xl bg-lightGrey">
+    <li className="mx-auto mt-4 flex h-[228px] md:w-[640px] md:h-[228px] w-[295px] flex-col gap-y-3 p-5 rounded-xl bg-lightGrey">
       <div className="flex flex-row items-center justify-between">
         <span className="flex items-center gap-x-2 font-bold text-grey">
           Link #1
           <HiMenuAlt4 />
         </span>
-        <Button size="sm" startContent={<MdDeleteOutline />} variant="ghost" color="danger">
+        <Button size="sm" startContent={<MdDeleteOutline className="md:h-5 md:w-5" />} variant="ghost" color="danger">
         Delete
         </Button>
       </div>
