@@ -6,7 +6,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 
 const Header: React.FC = () => {
     return (
-        <header className="left-0  right-0 md:m-6 flex flex-row items-center justify-between md:rounded-xl bg-white p-4 md:p-6">
+        <header className="left-0 sticky top-0 z-20 right-0 md:m-6 flex flex-row items-center justify-between md:rounded-xl bg-white p-4 md:p-6">
             <HeaderLogo />
             <HeaderLinks />
             <div className="hidden md:inline-block">
