@@ -29,6 +29,7 @@ async function createUserAccount({ email, password, name }: CreateAccount) {
       password,
       name,
     );
+    const session = await account.createEmailPasswordSession(email, password);
     if (userAccount) {
       await verifyUserAccount();
     }
@@ -45,7 +46,7 @@ async function verifyUserAccount() {
       "http://localhost:3000/verify",
     );
     console.log("verification email sent");
-    console.log(verificationData)
+    console.log(verificationData);
   } catch (error: any) {
     console.log(error.message);
     throw error;
@@ -72,25 +73,33 @@ async function checkEmailVerification() {
 }
 
 async function loginUser({ email, password }: LoginAccount) {
-  // since the user cannot verify their account without creating a session, create a session almost like this in the create account function, then redirect them to he email verification link.
-  // if for any reason the user neglects the verification, and tries to login directly, check if the user has a session with that email, using checkEmailVerification, and if they have an account but haven't verified, create a page for users that have accounts but haven't verified, and send them there, where they will be sent another verification email. Only then can they access the application fully. 
   try {
-    const userSession = await account.createEmailPasswordSession(
-      email,
-      password,
-    );
-    const isVerified = await checkEmailVerification();
-
-    if (!isVerified) {
-      console.log(
-        "Email not verified. Please verify your email before logging in.",
+    const existingSession = await account.get();
+    const isVerified = existingSession.emailVerification === true;
+    if (existingSession) {
+      if (isVerified) {
+        // login and route the user
+      } else {
+        // alert that they havent been verified and route them to the page that says they should check their inbox for their verification email
+        await verifyUserAccount();
+      }
+    } else {
+      const userSession = await account.createEmailPasswordSession(
+        email,
+        password,
       );
-      await account.deleteSession("current");
-      return false;
+      const newSession = account.get();
+      const isNewUserVerified = (await newSession).emailVerification === true;
+      if (isNewUserVerified) {
+        // login and route the user
+      } else {
+        // alert that they havent been verified and route them to the page that says they should check their inbox for their verification email
+        await verifyUserAccount();
+      }
+      console.log(userSession);
+      console.log("user logged in sucessfully");
+      // route the user to the required page after login
     }
-    console.log("user logged in sucessfully");
-    console.log(userSession);
-    return true;
   } catch (error: any) {
     console.log(error.message);
     throw error;
