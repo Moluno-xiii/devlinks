@@ -32,6 +32,13 @@ async function createUserAccount({ email, password, name }: CreateAccount) {
     const session = await account.createEmailPasswordSession(email, password);
     if (userAccount) {
       await verifyUserAccount();
+      setTimeout(async () => {
+        const isVerified = await checkEmailVerification();
+        if (!isVerified) {
+          await logoutUser();
+          console.log("Session expired due to lack of verification.");
+        }
+      }, 10 * 60 * 1000); // 10 minutes timeout
     }
     console.log("account created successfully, awaiting verification");
   } catch (error: any) {
@@ -40,6 +47,14 @@ async function createUserAccount({ email, password, name }: CreateAccount) {
   }
 }
 
+async function logoutUser() {
+  try {
+    return await account.deleteSession("current");
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 async function verifyUserAccount() {
   try {
     const verificationData = await account.createVerification(
