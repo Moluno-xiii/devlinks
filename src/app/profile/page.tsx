@@ -1,32 +1,51 @@
 import React from "react";
 import UploadFile from "./UploadFile";
 import { Button, Input } from "@nextui-org/react";
+import { IoMail } from "react-icons/io5";
 type Props = {};
-
+// upload image, update name and email address
 function page({}: Props) {
   return (
-    <div className="p-4 flex flex-col gap-y-5">
-      <header className="space-y-1 w-[295px] md:w-[640px] mx-auto ">
-        <p className=" text-dark-gray font-bold text-2xl">Profile Details</p>
-        <span className="text-grey text-base">
-          Add your details to create a personal touch to your profile.
+    <div className="flex flex-col gap-y-5 p-4">
+      <header className="mx-auto w-[295px] space-y-1 md:w-[640px]">
+        <p className="text-2xl font-bold text-dark-gray">Profile Details</p>
+        <span className="text-base text-grey">
+          Add / Edit your details to create a personal touch to your profile.
         </span>
       </header>
 
-      <section className="bg-lightWhite flex flex-col justify-center gap-y-3 w-[295px] h-[200px] md:w-[640px] mx-auto  p-5">
+      <section className="mx-auto flex h-[200px] w-[295px] flex-col justify-center gap-y-3 bg-lightWhite p-5 md:w-[640px]">
         <span className="text-xs">Profile Picture</span>
         <UploadFile />
       </section>
 
-      <form action="" className="p-5 w-[295px] md:w-[640px] mx-auto flex flex-col gap-y-3 bg-lightWhite">
-        <Input isRequired type="text" label="First name" placeholder="e.g. John" />
-        <Input isRequired type="text" label="Last name" placeholder="e.g. Doe" />
-        <Input isRequired type="email" label="Email" placeholder="e.g john@example.com" />
+      <form
+        action=""
+        className="mx-auto flex w-[295px] flex-col gap-y-3 bg-lightWhite p-5 md:w-[640px]"
+      >
+        <Input
+          isRequired
+          type="text"
+          label="First name"
+          placeholder="e.g. Sonia"
+        />
+        <Input
+          isRequired
+          type="text"
+          label="Last name"
+          placeholder="e.g. Omotola"
+        />
+        <Input
+          isRequired
+          type="email"
+          label="Email"
+          placeholder="e.g adisa@example.com"
+        />
       </form>
 
-      <Button color="primary" variant="shadow" className="w-[295px] mx-auto">
-          Save
-        </Button>
+      <Button color="primary" variant="shadow" className="mx-auto w-[295px]">
+        Save
+      </Button>
     </div>
   );
 }

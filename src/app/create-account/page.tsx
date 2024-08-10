@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import CreateAccountForm from "./createAccountForm";
 import { Button } from "@nextui-org/react";
-import { getCurrentUser } from "../../../appwrite";
+import { checkEmailVerification } from "../../../appwrite";
 
 export default function Home() {
   return (
@@ -22,15 +22,16 @@ export default function Home() {
         </section>
 
         <CreateAccountForm />
-        <Button
-        variant="solid"
-        onClick={getCurrentUser}
-        color="primary"
-        type="submit"
-        className="mt-4 w-full text-base font-semibold"
-      >
-        Get current user
-      </Button>
+
+        {/* <Button
+          variant="solid"
+          onClick={checkEmailVerification}
+          color="primary"
+          type="submit"
+          className="mt-4 w-full text-base font-semibold"
+        >
+          Get current user
+        </Button> */}
 
         <div className="mt-6 flex flex-col items-center gap-x-1 sm:flex-row sm:justify-center">
           <span>Already have an account?</span>

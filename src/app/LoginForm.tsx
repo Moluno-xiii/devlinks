@@ -4,7 +4,7 @@ import { IoLockClosed, IoMail } from "react-icons/io5";
 import { Button, Input } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import FormValidationError from "@/components/UI/FormValidationError";
-import { loginUserAccount } from "../../appwrite";
+import { loginUser } from "../../appwrite";
 type Props = {};
 interface LoginFormData {
   password: string;
@@ -18,8 +18,8 @@ const LoginForm = (props: Props) => {
   } = useForm<LoginFormData>();
 
   const onSubmit = (data: LoginFormData) => {
-    const {password, email} = data
-    loginUserAccount({email, password})
+    const { password, email } = data;
+    loginUser({ email, password });
     console.log(data);
   };
 

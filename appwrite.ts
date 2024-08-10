@@ -80,6 +80,7 @@ async function updateVerification(userId: string, secret: string) {
 async function checkEmailVerification() {
   try {
     const user = await account.get();
+    console.log(user)
     return user.emailVerification;
   } catch (error: any) {
     console.log("Error checking email verification:", error.message);
@@ -120,4 +121,4 @@ async function loginUser({ email, password }: LoginAccount) {
     throw error;
   }
 }
-export { createUserAccount, loginUser, updateVerification };
+export { createUserAccount, loginUser, updateVerification, checkEmailVerification };

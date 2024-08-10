@@ -37,7 +37,7 @@ const CreateAccountForm = (props: Props) => {
         label="Email"
         endContent={<IoMail />}
         type="text"
-        description="e.g osinachi@gmail.com"
+        description="e.g akeye@gmail.com"
         labelPlacement="outside"
         isRequired
         {...register("email", {

@@ -19,8 +19,6 @@ export default function Home() {
 
         <LoginForm />
 
-
-
         <div className="mt-6 flex flex-col items-center gap-x-1 sm:flex-row sm:justify-center">
           <span>{"Don't"} have an account?</span>
           <Link href="/create-account" className="text-primary">

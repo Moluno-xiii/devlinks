@@ -4,6 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { FiLink } from "react-icons/fi";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { FaUser } from "react-icons/fa6";
 
 const HeaderLinks: React.FC = () => {
     const currentPath = usePathname()
@@ -17,7 +18,7 @@ const HeaderLinks: React.FC = () => {
             <Link
                 href="/links"
                 className={clsx(
-                    "rounded-xl px-[27px] py-[11px] hover:text-primary flex items-center gap-x-1",
+                    "rounded-xl px-5 py-[11px] hover:text-primary flex items-center gap-x-1",
                     isActiveRoute("/links")
                         ? "bg-light-purple text-primary"
                         : "bg-white text-grey"
@@ -30,13 +31,13 @@ const HeaderLinks: React.FC = () => {
             <Link
                 href="/profile"
                 className={clsx(
-                    "rounded-xl px-[27px] py-[11px] hover:text-primary flex items-center gap-x-1",
-                    isActiveRoute("/profile-details")
+                    "rounded-xl px-5 py-[11px] hover:text-primary flex items-center gap-x-1",
+                    isActiveRoute("/profile")
                         ? "bg-light-purple text-primary"
                         : "bg-white text-grey"
                 )}
             >
-                <CgProfile height={15.63} width={15.63} />
+                <FaUser height={15.63} width={15.63} />
                 <span className="font-semibold capitalize hidden sm:inline-block">Profile Details</span>
             </Link>
         </nav>

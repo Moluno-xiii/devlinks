@@ -14,17 +14,6 @@ const animals = [
 
 const page = (props: Props) => {
   return (
-    // <Select
-    //   className="max-w-xs"
-    //   defaultSelectedKeys={["cat"]}
-    //   label="Favorite Animal"
-    //   placeholder="Select an animal"
-    //   startContent={<FaGithub />}
-    // >
-    //   {animals.map((animal) => (
-    //     <SelectItem key={animal.key}>{animal.label}</SelectItem>
-    //   ))}
-    // </Select>
     <div>
       <Select
         className="max-w-xs"
