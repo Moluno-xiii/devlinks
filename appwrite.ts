@@ -1,4 +1,5 @@
 import { Account, Client, ID } from "appwrite";
+import { error } from "console";
 
 const client = new Client();
 
@@ -20,147 +21,79 @@ interface LoginAccount {
   password: string;
 }
 
-// async function createUserAccount({ email, password, name }: CreateAccount) {
-//   try {
-//     const user = await account.create(ID.unique(), email, password, name);
-
-//     await verifyAccount()
-//     // if (user) {
-//     //   // await loginUserAccount({ email, password });
-//     //   // await verifyAccount();
-
-//     //   const response = await account.createVerification(
-//     //     "http://localhost:3000/verify",
-//     //   );
-//     //   console.log(response);
-//     //   return response;
-
-//     //   console.log("account created successfully");
-//     //   // account.updateName(name);
-//     //   console.log(user);
-//     // } else {
-//     //   console.log("account creation not successful");
-//     //   return;
-//     // }
-//   } catch (error) {
-//     console.error("An error occured :", error);
-//     throw error;
-//   }
-// }
-
-// async function createUserAccount({ email, password, name }: CreateAccount) {
-//   try {
-//     // await logoutUser()
-//     const newUser = await account.create(ID.unique(), email, password);
-//     await account.createSession(email, password);
-//     await account.createVerification("http://localhost:3000/verify");
-//     console.log("email  has been sent to your account");
-//     console.log(newUser)
-//   } catch (error: any) {
-//     console.log(error.messsage);
-//   }
-// }
-
-async function loginUserAccount({ email, password }: LoginAccount) {
+async function createUserAccount({ email, password, name }: CreateAccount) {
   try {
-    await logoutUser();
-    const loginSession = await account.createEmailPasswordSession(
+    const userAccount = await account.create(
+      ID.unique(),
+      email,
+      password,
+      name,
+    );
+    if (userAccount) {
+      await verifyUserAccount();
+    }
+    console.log("account created successfully, awaiting verification");
+  } catch (error: any) {
+    console.log(error.message);
+    throw error;
+  }
+}
+
+async function verifyUserAccount() {
+  try {
+    const verificationData = await account.createVerification(
+      "http://localhost:3000/verify",
+    );
+    console.log("verification email sent");
+    console.log(verificationData)
+  } catch (error: any) {
+    console.log(error.message);
+    throw error;
+  }
+}
+
+async function updateVerification(userId: string, secret: string) {
+  try {
+    await account.updateVerification(userId, secret);
+  } catch (error: any) {
+    console.log(error.message);
+    throw error;
+  }
+}
+
+async function checkEmailVerification() {
+  try {
+    const user = await account.get();
+    return user.emailVerification;
+  } catch (error: any) {
+    console.log("Error checking email verification:", error.message);
+    throw error;
+  }
+}
+
+async function loginUser({ email, password }: LoginAccount) {
+  // since the user cannot verify their account without creating a session, create a session almost like this in the create account function, then redirect them to he email verification link.
+  // if for any reason the user neglects the verification, and tries to login directly, check if the user has a session with that email, using checkEmailVerification, and if they have an account but haven't verified, create a page for users that have accounts but haven't verified, and send them there, where they will be sent another verification email. Only then can they access the application fully. 
+  try {
+    const userSession = await account.createEmailPasswordSession(
       email,
       password,
     );
-    console.log(loginSession);
-    console.log("login attempted");
-    return loginSession;
-  } catch (error) {
-    console.log("Error logging in:", error);
-    throw error;
-  }
-}
+    const isVerified = await checkEmailVerification();
 
-async function getCurrentUser() {
-  try {
-    const data = await account.get();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function logoutUser() {
-  try {
-    return await account.deleteSession("current");
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-// async function verifyAccount() {
-//   try {
-//     const response = await account.createVerification(
-//       "http://localhost:3000/verify",
-//     );
-//     console.log("verification email has been sent");
-//     console.log(response);
-//     return response;
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
-
-async function verifyLogin(userId: string, secret: string) {
-  try {
-    const response = await account.updateVerification(userId, secret);
-    console.log(response);
-    return response;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-async function createUserAccount({ email, password, name }: CreateAccount) {
-  try {
-    // Create the user account
-    await logoutUser()
-    const user = await account.create(ID.unique(), email, password, name);
-
-    // Log in the user immediately to create a session
-    const loginSession = await account.createEmailPasswordSession(email, password);
-
-    if (loginSession) {
-      console.log("User logged in successfully");
-
-      // Send verification email after logging in
-      await verifyAccount();
+    if (!isVerified) {
+      console.log(
+        "Email not verified. Please verify your email before logging in.",
+      );
+      await account.deleteSession("current");
+      return false;
     }
-  } catch (error) {
-    console.error("An error occurred:", error);
+    console.log("user logged in sucessfully");
+    console.log(userSession);
+    return true;
+  } catch (error: any) {
+    console.log(error.message);
     throw error;
   }
 }
-
-async function verifyAccount() {
-  try {
-    const response = await account.createVerification(
-      "http://localhost:3000/verify"
-    );
-    console.log("Verification email has been sent");
-    console.log(response);
-    return response;
-  } catch (error) {
-    console.error("Error in sending verification email:", error);
-    throw error;
-  }
-}
-
-
-export {
-  createUserAccount,
-  loginUserAccount,
-  getCurrentUser,
-  logoutUser,
-  verifyLogin,
-};
+export { createUserAccount, loginUser, updateVerification };
