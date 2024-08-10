@@ -1,8 +1,7 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
-import LoginForm from "./LoginForm"
+import LoginForm from "./LoginForm";
 export default function Home() {
   return (
     <main className="mx-auto h-[100dvh] leading-[150%] text-dark-gray max-sm:m-10 sm:flex sm:max-w-[476px] sm:flex-col sm:items-center sm:justify-center">
@@ -18,7 +17,9 @@ export default function Home() {
           </span>
         </section>
 
-<LoginForm />
+        <LoginForm />
+
+
 
         <div className="mt-6 flex flex-col items-center gap-x-1 sm:flex-row sm:justify-center">
           <span>{"Don't"} have an account?</span>

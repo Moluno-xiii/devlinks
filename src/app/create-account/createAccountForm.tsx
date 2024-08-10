@@ -58,6 +58,7 @@ const CreateAccountForm = (props: Props) => {
         endContent={<FaUserAlt />}
         type="text"
         labelPlacement="outside"
+        description="At least 3 characters"
         isRequired
         {...register("name", {
           required: "Enter a valid username",
@@ -118,6 +119,7 @@ const CreateAccountForm = (props: Props) => {
       >
         Create Account
       </Button>
+
     </form>
   );
 };
