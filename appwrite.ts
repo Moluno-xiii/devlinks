@@ -32,13 +32,16 @@ async function createUserAccount({ email, password, name }: CreateAccount) {
     const session = await account.createEmailPasswordSession(email, password);
     if (userAccount) {
       await verifyUserAccount();
-      setTimeout(async () => {
-        const isVerified = await checkEmailVerification();
-        if (!isVerified) {
-          await logoutUser();
-          console.log("Session expired due to lack of verification.");
-        }
-      }, 10 * 60 * 1000); // 10 minutes timeout
+      setTimeout(
+        async () => {
+          const isVerified = await checkEmailVerification();
+          if (!isVerified) {
+            await logoutUser();
+            console.log("Session expired due to lack of verification.");
+          }
+        },
+        10 * 60 * 1000,
+      ); // 10 minutes timeout
     }
     console.log("account created successfully, awaiting verification");
   } catch (error: any) {
@@ -80,7 +83,7 @@ async function updateVerification(userId: string, secret: string) {
 async function checkEmailVerification() {
   try {
     const user = await account.get();
-    console.log(user)
+    console.log(user);
     return user.emailVerification;
   } catch (error: any) {
     console.log("Error checking email verification:", error.message);
@@ -95,6 +98,7 @@ async function loginUser({ email, password }: LoginAccount) {
     if (existingSession) {
       if (isVerified) {
         // login and route the user
+        console.log(existingSession);
       } else {
         // alert that they havent been verified and route them to the page that says they should check their inbox for their verification email
         await verifyUserAccount();
@@ -108,6 +112,7 @@ async function loginUser({ email, password }: LoginAccount) {
       const isNewUserVerified = (await newSession).emailVerification === true;
       if (isNewUserVerified) {
         // login and route the user
+        console.log("logged in new user:", newSession);
       } else {
         // alert that they havent been verified and route them to the page that says they should check their inbox for their verification email
         await verifyUserAccount();
@@ -121,4 +126,25 @@ async function loginUser({ email, password }: LoginAccount) {
     throw error;
   }
 }
-export { createUserAccount, loginUser, updateVerification, checkEmailVerification };
+
+async function passwordRecovery(email: string) {
+  return await account.createRecovery(
+    email,
+    "http://localhost:3000/password-reset",
+  );
+}
+async function updateRecovery(password: string, userId : string, secret : string) {
+  return await account.updateRecovery(
+    userId,
+    secret,
+    password,
+  );
+}
+export {
+  createUserAccount,
+  loginUser,
+  updateVerification,
+  checkEmailVerification,
+  passwordRecovery,
+  updateRecovery
+};

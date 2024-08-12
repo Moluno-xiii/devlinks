@@ -5,6 +5,7 @@ import { Button, Input } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import FormValidationError from "@/components/UI/FormValidationError";
 import { loginUser } from "../../appwrite";
+import Link from "next/link";
 type Props = {};
 interface LoginFormData {
   password: string;
@@ -73,6 +74,9 @@ const LoginForm = (props: Props) => {
       >
         Login
       </Button>
+      <Link href="password-reset" className="text-error text-xs place-self-end">
+      Forgot Password ?
+      </Link>
     </form>
   );
 };

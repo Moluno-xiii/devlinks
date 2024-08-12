@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
           Get Started
         </Button>
 
-        <section className="my-3 flex flex-col items-center justify-center gap-3 rounded-xl border-b border-lightGrey bg-lightGrey px-5 py-10 text-black md:w-full">
+        <section className="my-10 flex flex-col items-center justify-center gap-3 rounded-xl border-b border-lightGrey bg-lightGrey px-5 py-10 text-black md:w-full">
           <Image
             src="/mobile-image.svg"
             alt="phone image"

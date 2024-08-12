@@ -25,6 +25,9 @@ const page = (props: Props) => {
           Add Link
         </Button>
         <UserLinks />
+        <Button variant="bordered" color="primary" aria-label="save link button" className="place-self-end mt-5" size="sm">
+          Save
+        </Button>
       </main>
     </div>
   );
