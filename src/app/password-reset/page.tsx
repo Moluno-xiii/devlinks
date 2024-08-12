@@ -6,14 +6,17 @@ import { useForm } from "react-hook-form";
 import FormValidationError from "../../components/UI/FormValidationError";
 import { updateRecovery } from "../../../appwrite";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 type Props = {};
 interface LoginFormData {
-  password?: string;
+  password? : string;
   confirmPassword: string;
-  randomString : string
 }
 
 const ForgotPassword = (props: Props) => {
+  const searchParams = useSearchParams()
+  const userId = searchParams.get("userId") as string
+  const secret = searchParams.get("secret") as string
   const {
     register,
     handleSubmit,
@@ -23,7 +26,7 @@ const ForgotPassword = (props: Props) => {
 
   const onSubmit = (data: LoginFormData) => {
     const { confirmPassword } = data;
-    updateRecovery(confirmPassword, "string", "another string");
+    updateRecovery(confirmPassword, userId, secret);
     console.log(data);
   };
   return (
