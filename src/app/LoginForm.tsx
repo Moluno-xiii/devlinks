@@ -1,17 +1,21 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { IoLockClosed, IoMail } from "react-icons/io5";
 import { Button, Input } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import FormValidationError from "@/components/UI/FormValidationError";
 import { loginUser } from "../../appwrite";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import useRedirect from "@/hooks/useRedirect";
 type Props = {};
 interface LoginFormData {
   password: string;
   email: string;
 }
 const LoginForm = (props: Props) => {
+  const router = useRouter();
+const {user} = useRedirect()
   const {
     register,
     handleSubmit,
@@ -23,6 +27,13 @@ const LoginForm = (props: Props) => {
     loginUser({ email, password });
     console.log(data);
   };
+
+  useEffect(function () {
+    if (user && user.emailVerification === true) {
+      router.push("/homepage");
+      console.log(user)
+    }
+  }, [user, router]);
 
   return (
     <form
@@ -74,8 +85,8 @@ const LoginForm = (props: Props) => {
       >
         Login
       </Button>
-      <Link href="password-reset" className="text-error text-xs place-self-end">
-      Forgot Password ?
+      <Link href="password-reset" className="place-self-end text-xs text-error">
+        Forgot Password ?
       </Link>
     </form>
   );

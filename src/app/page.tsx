@@ -4,7 +4,7 @@ import Link from "next/link";
 import LoginForm from "./LoginForm";
 export default function Home() {
   return (
-    <main className="mx-auto h-[100dvh] leading-[150%] text-dark-gray max-sm:m-10 sm:flex sm:max-w-[476px] sm:flex-col sm:items-center sm:justify-center">
+    <main className="mx-auto h-[100dvh] leading-[150%] text-dark-gray max-sm:p-10 sm:flex sm:max-w-[476px] sm:flex-col sm:items-center sm:justify-center">
       <header className="mx-auto flex max-w-[311px] flex-row gap-x-2 sm:justify-center">
         <Image src="/logo.svg" width={135} height={26.25} alt="devlinks logo" />
       </header>

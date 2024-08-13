@@ -1,91 +1,29 @@
-"use client";
+import ResetForm from "./ResetForm";
 import React from "react";
-import { IoLockClosed, IoMail } from "react-icons/io5";
-import { Button, Input } from "@nextui-org/react";
-import { useForm } from "react-hook-form";
-import FormValidationError from "../../components/UI/FormValidationError";
-import { updateRecovery } from "../../../appwrite";
+import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+
 type Props = {};
-interface LoginFormData {
-  password? : string;
-  confirmPassword: string;
-}
 
-const ForgotPassword = (props: Props) => {
-  const searchParams = useSearchParams()
-  const userId = searchParams.get("userId") as string
-  const secret = searchParams.get("secret") as string
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm<LoginFormData>();
-
-  const onSubmit = (data: LoginFormData) => {
-    const { confirmPassword } = data;
-    updateRecovery(confirmPassword, userId, secret);
-    console.log(data);
-  };
+const page = (props: Props) => {
   return (
-    <div className="flex flex-col gap-y-4 text-center m-5 sm:w-[600px] sm:mx-auto">
-      <p className="text-3xl font-semibold">Reset Password</p>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center gap-y-2 sm:px-8"
-      >
-        <Input
-          variant="faded"
-          label="New Password"
-          type="password"
-          labelPlacement="outside"
-          isRequired
-          endContent={<IoLockClosed />}
-          {...register("password", {
-            required: "Password is required",
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters long",
-            },
-          })}
-        />
-        {errors.password && (
-          <FormValidationError
-            errorMessage={errors.password.message as string}
-          />
-        )}
-        <Input
-          type="password"
-          label="Confirm Password"
-          isRequired
-          labelPlacement="outside"
-          description="At least 8 characters"
-          variant="faded"
-          {...register("confirmPassword", {
-            required: "Please confirm your password",
-            validate: (value) =>
-              value === getValues("password") || "Passwords do not match",
-          })}
-          endContent={<IoLockClosed />}
-        />
-        {errors.confirmPassword && (
-          <FormValidationError
-            errorMessage={errors.confirmPassword.message as string}
-          />
-        )}
-        <Button
-          variant="solid"
-          color="primary"
-          type="submit"
-          className="mt-4 w-full text-base font-semibold"
-        >
-          Reset Password
-        </Button>
-      </form>
-    </div>
+    <main className="mx-auto h-[100dvh] leading-[150%] text-dark-gray max-sm:p-10 sm:flex sm:max-w-[600px] sm:flex-col sm:items-center sm:justify-center">
+      <header className="flex max-w-[311px] flex-row justify-start gap-x-2 sm:justify-center">
+        <Image src="/logo.svg" width={135} height={26.25} alt="devlinks logo" />
+      </header>
+
+      <div className="mt-16 sm:w-[600px] sm:rounded-xl sm:bg-white sm:py-8">
+        <section className="mb-4 flex max-w-[600px] flex-col gap-y-2 sm:mx-8 sm:max-w-[600px]">
+          <span className="text-2xl font-bold sm:text-3xl">Reset Password</span>
+          <span className="text-base text-grey">
+          Secure your account with a new password. Fill in the details below
+          </span>
+        </section>
+
+        <ResetForm />
+      </div>
+    </main>
   );
 };
 
-export default ForgotPassword;
+export default page;

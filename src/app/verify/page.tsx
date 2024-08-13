@@ -19,11 +19,15 @@ const Verification = (props: Props) => {
         .then(() => {
             setStatus('Verification successful. Redirecting to login...');
             console.log("login successful")
-            setTimeout(() => router.push('/login'), 3000);
+            console.log(secret)
+            console.log(userId)
+            router.push('/login');
         })
         .catch((error) => {
           console.log('Verification failed', error);
           setStatus('Verification failed. Please try again or contact support.')
+          console.log(secret)
+          console.log(userId)
           throw error
         });
     } else {

@@ -2,17 +2,22 @@
 import Image from "next/image";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import useRedirect from "@/hooks/useRedirect";
 
 const HomePage: React.FC = () => {
   const handleOpenLinks = () => {
     router.push("/links");
   };
   const router = useRouter();
+  const { user } = useRedirect();
   return (
     <div className="flex items-center justify-center">
       <main className="flex w-[343px] flex-col items-center justify-center rounded-xl bg-white p-6 md:w-[721px]">
         <section className="flex flex-col gap-y-2 md:w-full">
-          <p className="text-2xl font-bold md:text-3xl">Welcome to devlinks</p>
+          <p className="text-2xl font-bold md:text-3xl">
+            Welcome to devlinks, {" "}
+            <span className="capitalize text-primary">{user && user.name}</span>
+          </p>
           <span className="mb-10 text-base text-grey">
             {"Let's"} get you started with customizing your profile links.
           </span>
