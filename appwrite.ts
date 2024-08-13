@@ -21,6 +21,7 @@ interface LoginAccount {
   password: string;
 }
 
+
 async function createUserAccount({ email, password, name }: CreateAccount) {
   try {
     const userAccount = await account.create(

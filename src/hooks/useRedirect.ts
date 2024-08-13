@@ -1,21 +1,19 @@
 import { useState, useEffect } from "react";
 import { account } from "../../appwrite";
+import { useDispatch } from "react-redux";
+import { isLoading, setError, setUser } from "@/app/store/authSlice/authSlice";
 
 const useRedirect = () => {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch()
 
   const getCurrentUser = async () => {
     try {
-      setLoading(true);
+      dispatch(isLoading())
       const data = await account.get();
-      setUser(data);
-      setLoading(false);
+      dispatch(setUser(data))
     } catch (error: any) {
       console.error(error.message);
-      setError(error.message);
-      setLoading(false);
+      dispatch(setError(error))
     }
   };
 
@@ -23,7 +21,6 @@ const useRedirect = () => {
     getCurrentUser();
   }, []);
 
-  return { user, getCurrentUser, loading, error };
 };
 
 export default useRedirect;

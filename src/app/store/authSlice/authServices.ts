@@ -7,7 +7,32 @@ const createUserAccount = async ({ email, password, name }: CreateAccount) => {
 };
 
 const loginUser = async ({ email, password }: Login) => {
-  return await account.createEmailPasswordSession(email, password);
+  try {
+    const existingSession = await account.get();
+    const isVerified = existingSession.emailVerification === true;
+
+    if (existingSession) {
+      if (isVerified) {
+        return existingSession;
+      } else {
+        await verifyUserAccount();
+        throw new Error('Email not verified. Please check your inbox.');
+      }
+    } else {
+      const userSession = await account.createEmailPasswordSession(email, password);
+      const newSession = await account.get();
+      const isNewUserVerified = newSession.emailVerification === true;
+
+      if (isNewUserVerified) {
+        return newSession; 
+      } else {
+        await verifyUserAccount();
+        throw new Error('Email not verified. Please check your inbox.');
+      }
+    }
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 };
 
 const logoutUser = async () => {

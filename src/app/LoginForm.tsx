@@ -1,39 +1,53 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { use, useEffect } from "react";
 import { IoLockClosed, IoMail } from "react-icons/io5";
 import { Button, Input } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import FormValidationError from "@/components/UI/FormValidationError";
 import { loginUser } from "../../appwrite";
+import { fetchCurrentUser, login } from "./store/authSlice/authThunks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import useRedirect from "@/hooks/useRedirect";
+// import useRedirect from "@/hooks/useRedirect";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./store/store";
+import { useDispatch } from "react-redux";
+import { lchown } from "fs/promises";
+import { Login } from "@/types";
 type Props = {};
-interface LoginFormData {
-  password: string;
-  email: string;
-}
 const LoginForm = (props: Props) => {
   const router = useRouter();
-const {user} = useRedirect()
+// const {user} = useRedirect()
+const {user, loading, errorMessage} = useSelector((state : RootState) => state.auth)
+const dispatch = useDispatch<AppDispatch>()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>();
+  } = useForm<Login>();
 
-  const onSubmit = (data: LoginFormData) => {
-    const { password, email } = data;
-    loginUser({ email, password });
+  const onSubmit = (data: Login) => {
+    const { email, password } = data;
+    // loginUser({ email, password });
+    dispatch(login({email, password}))
     console.log(data);
   };
+
+  useEffect(function (){
+    dispatch(fetchCurrentUser())
+  }, [dispatch])
 
   useEffect(function () {
     if (user && user.emailVerification === true) {
       router.push("/homepage");
       console.log(user)
+    }else {
+      return
     }
   }, [user, router]);
+
+  if (errorMessage) return <p>{errorMessage}</p>
 
   return (
     <form
@@ -79,6 +93,7 @@ const {user} = useRedirect()
       )}
       <Button
         variant="solid"
+        isLoading = {loading}
         color="primary"
         type="submit"
         className="mt-4 w-full text-base font-semibold"
