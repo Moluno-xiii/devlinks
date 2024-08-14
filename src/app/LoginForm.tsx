@@ -29,7 +29,6 @@ const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit = (data: Login) => {
     const { email, password } = data;
-    // loginUser({ email, password });
     dispatch(login({email, password}))
     console.log(data);
   };

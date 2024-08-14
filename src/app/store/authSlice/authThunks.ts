@@ -1,27 +1,34 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { loginUser } from "./authServices";
+import { loginUser, logoutUser } from "./authServices";
 import { Login } from "@/types";
 import { account } from "../../../../appwrite";
 import { isLoading, setError, setUser } from "./authSlice";
-import { getUserById } from "../../../../sudoAppwrite";
 
 const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }: Login, { dispatch, rejectWithValue }) => {
-    // try {
-    //     const response = await loginUser({ email, password });
-    //     return response;
-    // } catch (error: any) {
-    //     return rejectWithValue(error.message);
-    // }
     try {
       const data = await account.createEmailPasswordSession(email, password);
-      const userData = await getUserById('66bb734ac221e8cfd38a')
-      console.log(data)
-      return data
+      const currentUser = await account.get();
+      dispatch(setUser(currentUser));
+      console.log(data);
+      return data;
     } catch (error: any) {
       console.log(error.message);
-      return rejectWithValue(error.message)
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+const logout = createAsyncThunk(
+  "auth/logout",
+  async (_,{ dispatch, rejectWithValue }) => {
+    try {
+      await logoutUser()
+      dispatch(setUser(null));
+    } catch (error: any) {
+      console.log(error.message);
+      return rejectWithValue(error.message);
     }
   },
 );
@@ -41,4 +48,4 @@ const fetchCurrentUser = createAsyncThunk(
   },
 );
 
-export { login, fetchCurrentUser };
+export { login, fetchCurrentUser, logout };

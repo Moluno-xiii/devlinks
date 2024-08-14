@@ -4,16 +4,20 @@ import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import useRedirect from "@/hooks/useRedirect";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { logoutUser } from "../store/authSlice/authServices";
+import { AppDispatch, RootState } from "../store/store";
+import { logout } from "../store/authSlice/authThunks";
+import { useDispatch } from "react-redux";
+// import { logoutUser } from "../store/authSlice/authServices";
 
 const HomePage: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const handleOpenLinks = () => {
     router.push("/links");
   };
 
-  const logout = () => {
-    logoutUser();
+  const logoutUser = () => {
+    // logoutUser();
+    dispatch(logout())
     router.push("/");
   };
   const router = useRouter();
@@ -44,7 +48,7 @@ const HomePage: React.FC = () => {
           variant="ghost"
           color="primary"
           className="w-[295px] md:w-full"
-          onClick={logout}
+          onClick={logoutUser}
         >
           {/* View your links when the link array is more than 0*/}
           Logout User

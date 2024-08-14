@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { account } from "../../appwrite";
 import { useDispatch } from "react-redux";
 import { isLoading, setError, setUser } from "@/app/store/authSlice/authSlice";
+import { AppDispatch } from "@/app/store/store";
 
 const useRedirect = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const getCurrentUser = async () => {
     try {
