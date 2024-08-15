@@ -1,3 +1,4 @@
+import { LinkItem } from "@/types";
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import React from "react";
 import {
@@ -17,12 +18,10 @@ import { HiAtSymbol, HiMenuAlt4 } from "react-icons/hi";
 import { LuLink } from "react-icons/lu";
 import { MdDeleteOutline } from "react-icons/md";
 import { SiCodewars, SiFrontendmentor, SiHashnode } from "react-icons/si";
+import { TbWorldWww } from "react-icons/tb";
 
 type Props = {};
-interface LinkItem {
-  key: string;
-  icon: React.ReactNode;
-}
+
 
 const _links: LinkItem[] = [
   {
@@ -81,6 +80,10 @@ const _links: LinkItem[] = [
     key: "Stack Overflow",
     icon: <FaStackOverflow />,
   },
+  {
+    key: "Personal Website",
+    icon: <TbWorldWww />,
+  },
 ];
 
 const Link = (props: Props) => {
@@ -113,7 +116,6 @@ const Link = (props: Props) => {
               </SelectItem>
             ))}
           </Select>
-
         </div>
 
         <div className="flex flex-col gap-y-3">

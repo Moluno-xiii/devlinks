@@ -14,4 +14,9 @@ interface UpdateVerification {
   secret : string;
 }
 
-export type { Login, CreateAccount, UpdateVerification };
+interface LinkItem {
+  key: string;
+  icon: React.ReactNode;
+}
+
+export type { Login, CreateAccount, UpdateVerification, LinkItem };

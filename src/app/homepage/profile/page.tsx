@@ -1,7 +1,7 @@
 import React from "react";
 import UploadFile from "./UploadFile";
 import { Button, Input } from "@nextui-org/react";
-import { IoMail } from "react-icons/io5";
+
 type Props = {};
 // upload image, update name and email address
 function page({}: Props) {

@@ -2,21 +2,18 @@
 import Image from "next/image";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import useRedirect from "@/hooks/useRedirect";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { logout } from "../store/authSlice/authThunks";
 import { useDispatch } from "react-redux";
-// import { logoutUser } from "../store/authSlice/authServices";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const handleOpenLinks = () => {
-    router.push("/links");
+    router.push("/homepage/links");
   };
 
   const logoutUser = () => {
-    // logoutUser();
     dispatch(logout())
     router.push("/");
   };

@@ -8,7 +8,7 @@ const Header = (props: Props) => {
   return (
     <header className="sticky top-0 z-20 flex w-full flex-row items-center justify-center gap-x-2 bg-white p-4 md:justify-between md:rounded-md">
       <Button className="w-40" variant="bordered" color="primary">
-        <Link href="/links">Back to Editor</Link>
+        <Link href="/homepage/links">Back to Editor</Link>
       </Button>
       <Button className="w-40" color="primary" variant="shadow">
         Share Link
