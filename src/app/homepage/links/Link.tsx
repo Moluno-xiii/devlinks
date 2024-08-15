@@ -12,6 +12,7 @@ import {
   FaStackOverflow,
   FaTwitch,
   FaTwitter,
+  FaWhatsapp,
   FaYoutube,
 } from "react-icons/fa";
 import { HiAtSymbol, HiMenuAlt4 } from "react-icons/hi";
@@ -19,6 +20,7 @@ import { LuLink } from "react-icons/lu";
 import { MdDeleteOutline } from "react-icons/md";
 import { SiCodewars, SiFrontendmentor, SiHashnode } from "react-icons/si";
 import { TbWorldWww } from "react-icons/tb";
+import { TfiEmail } from "react-icons/tfi";
 
 type Props = {};
 
@@ -79,6 +81,14 @@ const _links: LinkItem[] = [
   {
     key: "Stack Overflow",
     icon: <FaStackOverflow />,
+  },
+  {
+    key: "Email",
+    icon: <TfiEmail />,
+  },
+  {
+    key: "Whatsapp",
+    icon: <FaWhatsapp />,
   },
   {
     key: "Personal Website",

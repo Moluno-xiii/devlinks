@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import build from "next/dist/build";
 import { login as loginUser} from "./authThunks";
-import { StaticImageData } from "next/image";
-import { truncateSync } from "fs";
 
 interface InitialStateProps {
   loading: boolean;

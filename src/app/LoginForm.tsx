@@ -68,6 +68,7 @@ const LoginForm = (props: Props) => {
         <Input
           type="email"
           label="Email"
+          disabled={loading}
           isRequired
           labelPlacement="outside"
           description="e.g adekola@gmail.com"
@@ -88,6 +89,7 @@ const LoginForm = (props: Props) => {
           variant="faded"
           label="Password"
           type="password"
+          disabled={loading}
           labelPlacement="outside"
           isRequired
           endContent={<IoLockClosed />}
