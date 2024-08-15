@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { fetchCurrentUser } from "../store/authSlice/authThunks";
 import { useSelector } from "react-redux";
+import { isLoading } from "../store/authSlice/authSlice";
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
@@ -22,11 +23,12 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
+    if (!user || user.emailVerification !== true) {
+      router.push("/");
     }
   }, [user, router]);
 
+  if (loading) return <p>loading...</p>
   return (
     <div>
       <Header />

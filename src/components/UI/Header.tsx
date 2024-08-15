@@ -2,7 +2,7 @@
 import { Button } from "@nextui-org/react";
 import HeaderLinks from "@/components/header/HeaderLinks";
 import HeaderLogo from "@/components/header/HeaderLogo";
-import { MdOutlineRemoveRedEye, MdRemoveRedEye } from "react-icons/md";
+import { MdRemoveRedEye } from "react-icons/md";
 import Link from "next/link";
 
 const Header: React.FC = () => {

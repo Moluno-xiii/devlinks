@@ -18,6 +18,7 @@ const ButtonLink = ({text, leftIcon, bgColor}: Props) => {
     endContent={<FaArrowRight className="absolute right-5" />}
   >
    {text}
+
   </Button>
   )
 }
