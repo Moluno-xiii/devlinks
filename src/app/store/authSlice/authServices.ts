@@ -110,9 +110,6 @@ function getAvatar(file_id: string) {
 
 const fetchImage = async (fileId: string) => {
   try {
-    // Assuming you have a `bucketId` defined in your config
-    // const url = storage.getFilePreview(bucket_id as string, fileId);
-    // const url = storage.getFileView("66be8cdc001ef1920a3e", fileId);
     const url = storage.getFileView(bucket_id as string, fileId);
     console.log(url);
   } catch (error) {
