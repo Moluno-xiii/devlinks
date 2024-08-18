@@ -10,8 +10,8 @@ interface CreateAccount {
 }
 
 interface UpdateVerification {
-  userId : string;
-  secret : string;
+  userId: string;
+  secret: string;
 }
 
 interface LinkItem {
@@ -19,4 +19,10 @@ interface LinkItem {
   icon: React.ReactNode;
 }
 
-export type { Login, CreateAccount, UpdateVerification, LinkItem };
+interface CreateLink {
+  user_id: string;
+  link: string;
+  platform: string;
+}
+
+export type { Login, CreateAccount, UpdateVerification, LinkItem, CreateLink };

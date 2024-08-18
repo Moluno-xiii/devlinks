@@ -1,14 +1,20 @@
-import { Account, Client, ID } from "appwrite";
+import { Account, Client, Databases, ID, Storage } from "appwrite";
 import { error } from "console";
 
 const client = new Client();
+
+export const collection_id = process.env.NEXT_PUBLIC_COLLECTION_ID
+export const database_id = process.env.NEXT_PUBLIC_DATABASE_ID
+export const bucket_id = process.env.NEXT_PUBLIC_BUCKET_ID
+export const account = new Account(client);
+export const storage = new Storage(client)
+
 
 client;
 client
   .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string)
   .setProject(process.env.NEXT_PUBLIC_APPWRITE_ID as string);
 
-export const account = new Account(client);
 
 interface CreateAccount {
   email: string;
@@ -21,6 +27,7 @@ interface LoginAccount {
   password: string;
 }
 
+export const databases = new Databases(client)
 
 async function createUserAccount({ email, password, name }: CreateAccount) {
   try {
