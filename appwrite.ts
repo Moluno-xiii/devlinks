@@ -9,10 +9,10 @@ export const bucket_id = process.env.NEXT_PUBLIC_BUCKET_ID
 export const account = new Account(client);
 export const storage = new Storage(client)
 
-
 client;
 client
   .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string)
+  // .setEndpoint(process.env.APPWRITE_ENDPOINT as string)
   .setProject(process.env.NEXT_PUBLIC_APPWRITE_ID as string);
 
 

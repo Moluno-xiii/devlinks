@@ -84,22 +84,44 @@ async function createLink({ user_id, link, platform }: CreateLink) {
 async function uploadAvatar(imageFile: File) {
   const file_id = ID.unique();
   try {
-    const response = await storage.createFile(bucket_id as string, file_id, imageFile);
-    return response
+    const response = await storage.createFile(
+      bucket_id as string,
+      file_id,
+      imageFile,
+    );
+    console.log(response);
+    return response;
   } catch (error: any) {
     console.error("There was an error while uploading avatar :", error.message);
     throw new Error();
   }
 }
+
 function getAvatar(file_id: string) {
   try {
     const result = storage.getFileDownload(bucket_id as string, file_id);
+    console.log(result);
     return result;
   } catch (error: any) {
     console.error("There was an error while uploading avatar :", error.message);
     throw new Error();
   }
 }
+
+const fetchImage = async (fileId: string) => {
+  try {
+    // Assuming you have a `bucketId` defined in your config
+    // const url = storage.getFilePreview(bucket_id as string, fileId);
+    // const url = storage.getFileView("66be8cdc001ef1920a3e", fileId);
+    const url = storage.getFileView(bucket_id as string, fileId);
+    console.log(url);
+  } catch (error) {
+    console.error("Error fetching image:", error);
+  }
+};
+
+// use the authenticated user id to replace the uniqueID for storage and database purposes, cos the userid will always be available after login.
+// Also, separate concerns in this file, all functions that don't concern authentication should be moved to another file.
 
 export {
   createUserAccount,
@@ -108,4 +130,7 @@ export {
   updateVerification,
   checkEmailVerification,
   verifyUserAccount,
+  uploadAvatar,
+  getAvatar,
+  fetchImage,
 };

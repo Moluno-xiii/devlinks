@@ -31,7 +31,8 @@ const Preview = (props: Props) => {
             size={150}
             className="border-4 border-primary"
             alt="Profile Picture"
-            src="/eminem.jpeg"
+            src="https://cloud.appwrite.io/v1/storage/buckets/66be8cdc001ef1920a3e/files/66c273e50027228045bc/view?project=66b683e5003dbe7d5c53"
+            // src="/eminem.jpeg"
           />
           <p className="text-3xl font-bold capitalize">{`${user?.name}'s profile`}</p>
           <span className="text-grey">{user?.email}</span>
