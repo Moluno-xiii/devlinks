@@ -24,7 +24,7 @@ const Preview = (props: Props) => {
     <div className="flex flex-col items-center justify-center p-4">
       <Header />
 
-      <main className="z-10 mx-auto mt-36 flex flex-col items-center overflow-y-auto py-3 md:h-[560px] md:w-[350px] md:rounded-xl md:bg-white md:shadow-md">
+      <main className="z-10 mx-auto mt-10 sm:mt-36 flex flex-col items-center overflow-y-auto py-3 sm:h-[560px] sm:w-[350px] sm:rounded-xl sm:bg-white sm:shadow-sm">
         <div className="mb-14 flex items-center flex-col gap-y-6">
           <Avatar
             shape="circle"
@@ -62,7 +62,7 @@ const Preview = (props: Props) => {
           />
         </div>
       </main>
-      <div className="file absolute left-0 right-0 top-0 hidden h-[357px] rounded-b-[32px] bg-primary md:block"></div>
+      <div className="file absolute left-0 right-0 top-0 hidden h-[357px] rounded-b-[32px] bg-primary sm:block"></div>
     </div>
   );
 };

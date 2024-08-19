@@ -1,3 +1,5 @@
+import { UploadFile } from "antd";
+
 interface Login {
   password: string;
   email: string;
@@ -24,5 +26,7 @@ interface CreateLink {
   link: string;
   platform: string;
 }
+
+export type FileType = UploadFile["originFileObj"];
 
 export type { Login, CreateAccount, UpdateVerification, LinkItem, CreateLink };

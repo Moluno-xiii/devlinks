@@ -3,28 +3,18 @@
 import React, { useState } from "react";
 import { Image, Upload } from "antd";
 import type { UploadFile, UploadProps } from "antd";
-import { FaImage } from "react-icons/fa";
-import { fetchImage, getAvatar, uploadAvatar } from "@/app/store/authSlice/authServices";
+import { uploadAvatar } from "@/app/store/authSlice/authServices";
 import { toast } from "react-toastify";
-
-type FileType = UploadFile["originFileObj"];
-
-const getBase64 = (file: FileType | undefined): Promise<string> =>
-  new Promise((resolve, reject) => {
-    if (!file) {
-      return reject(new Error("File is undefined"));
-    }
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
+import { RcFile } from "antd/lib/upload/interface";
+import UploadButton from "./UploadButton";
+import UseFetchProfilePicture from "@/hooks/UseFetchProfilePicture";
+import { FileType } from "@/types";
+import { getBase64 } from "@/utils/getBase64";
 
 const UploadFile: React.FC = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const {fileList, setFileList} = UseFetchProfilePicture()
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -45,43 +35,20 @@ const UploadFile: React.FC = () => {
       return;
     }
 
-    const file = fileList[0].originFileObj as File;
+    const file = fileList[0].originFileObj as RcFile;
     if (file) {
       try {
         await uploadAvatar(file);
         toast.success("Profile picture uploaded successfully");
         console.log("trying to upload file");
       } catch (error) {
-        console.log("an error occured");
+        console.log("an error occurred");
         console.error("Upload failed:", error);
       }
     } else {
       console.log("no file");
     }
   };
-
-  
-  const handleDownloadAvatar = async () => {
-    try {
-      getAvatar("66c26b26002948bae558");
-      toast.success("Profile picture downloaded");
-      console.log("trying to download file");
-    } catch (error) {
-      console.log("an error occured");
-      console.error("download failed:", error);
-    }
-  };
-
-  const uploadButton = (
-    <button
-      className="flex flex-col items-center gap-y-2 text-primary"
-      type="button"
-      onClick={handleUpload}
-    >
-      <FaImage className="h-8 w-8" />
-      <div>+ Upload Image</div>
-    </button>
-  );
 
   return (
     <>
@@ -90,36 +57,25 @@ const UploadFile: React.FC = () => {
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        beforeUpload={() => false}
       >
-        {fileList.length >= 1 ? null : uploadButton}
+        {fileList.length >= 1 ? null : <UploadButton onClick={handleUpload} />}
       </Upload>
-      {previewImage && (
-        <>
-          <Image
-            wrapperStyle={{ display: "none" }}
-            preview={{
-              visible: previewOpen,
-              onVisibleChange: (visible) => setPreviewOpen(visible),
-              afterOpenChange: (visible) => !visible && setPreviewImage(""),
-            }}
-            src={previewImage}
-            alt="uploaded image"
-          />
-        </>
-      )}
+      <Image
+        wrapperStyle={{ display: "none" }}
+        preview={{
+          visible: previewOpen,
+          onVisibleChange: (visible) => setPreviewOpen(visible),
+          afterOpenChange: (visible) => !visible && setPreviewImage(""),
+        }}
+        src={previewImage}
+        alt="uploaded image"
+      />
       <button
         onClick={handleUpload}
         className="rounded-md border bg-primary p-2 text-white"
       >
         upload image
-      </button>
-      <button
-        // onClick={() => fetchImage("66c27755000ac5154bcb")}
-        // onClick={() => fetchImage("66c26b26002948bae558")}
-        onClick={() => fetchImage("66c273e50027228045bc")}
-        className="rounded-md border bg-primary p-2 text-white"
-      >
-        download image
       </button>
     </>
   );
