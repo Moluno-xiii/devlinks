@@ -80,9 +80,9 @@ async function createLink({ user_id, link, platform }: CreateLink) {
     throw new Error(error.message);
   }
 }
+// export const file_id = ID.unique();
 
-async function uploadAvatar(imageFile: File) {
-  const file_id = ID.unique();
+async function uploadAvatar(imageFile: File, file_id : string) {
   try {
     const response = await storage.createFile(
       bucket_id as string,
@@ -97,16 +97,28 @@ async function uploadAvatar(imageFile: File) {
   }
 }
 
-function getAvatar(file_id: string) {
+// function getAvatar(file_id: string) {
+//   try {
+//     const result = storage.getFileDownload(bucket_id as string, file_id);
+//     console.log(result);
+//     return result;
+//   } catch (error: any) {
+//     console.error("There was an error while uploading avatar :", error.message);
+//     throw new Error("failed to fetch avatara");
+//   }
+// }
+
+async function getAvatar(file_id: string) {
   try {
-    const result = storage.getFileDownload(bucket_id as string, file_id);
+    const result = await storage.getFileDownload(bucket_id as string, file_id);
     console.log(result);
     return result;
   } catch (error: any) {
-    console.error("There was an error while uploading avatar :", error.message);
-    throw new Error();
+    console.error("There was an error while fetching avatar:", error.message);
+    throw new Error("Failed to fetch avatar");
   }
 }
+
 
 const fetchImage = async (fileId: string) => {
   try {

@@ -14,7 +14,7 @@ function page({}: Props) {
         </span>
       </header>
 
-      <section className="mx-auto flex h-[200px] w-[295px] flex-col justify-center gap-y-3 bg-lightWhite p-5 md:w-[640px]">
+      <section className="mx-auto flex h-[250px] w-[295px] flex-col justify-center gap-y-3 bg-lightWhite p-5 md:w-[640px]">
         <span className="text-xs">Profile Picture</span>
         <UploadFile />
       </section>

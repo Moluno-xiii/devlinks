@@ -10,11 +10,18 @@ import UploadButton from "./UploadButton";
 import UseFetchProfilePicture from "@/hooks/UseFetchProfilePicture";
 import { FileType } from "@/types";
 import { getBase64 } from "@/utils/getBase64";
+import { Avatar, Button } from "@nextui-org/react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store/store";
 
 const UploadFile: React.FC = () => {
+  const { user, profilePicture } = useSelector(
+    (state: RootState) => state.auth,
+  );
+  console.log(profilePicture)
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
-  const {fileList, setFileList} = UseFetchProfilePicture()
+  const { fileList, setFileList } = UseFetchProfilePicture();
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -38,7 +45,7 @@ const UploadFile: React.FC = () => {
     const file = fileList[0].originFileObj as RcFile;
     if (file) {
       try {
-        await uploadAvatar(file);
+        await uploadAvatar(file, user.$id);
         toast.success("Profile picture uploaded successfully");
         console.log("trying to upload file");
       } catch (error) {
@@ -49,6 +56,8 @@ const UploadFile: React.FC = () => {
       console.log("no file");
     }
   };
+
+  if (profilePicture.length > 1) return <Avatar src={profilePicture} className="w-20 h-20" />
 
   return (
     <>
@@ -71,12 +80,16 @@ const UploadFile: React.FC = () => {
         src={previewImage}
         alt="uploaded image"
       />
-      <button
-        onClick={handleUpload}
-        className="rounded-md border bg-primary p-2 text-white"
-      >
-        upload image
-      </button>
+      {!profilePicture && (
+        <Button
+          onClick={handleUpload}
+          variant="solid"
+          color="primary"
+          className="w-40"
+        >
+          Save Changes
+        </Button>
+      )}
     </>
   );
 };

@@ -50,6 +50,7 @@ const LoginForm = (props: Props) => {
         toast.success("Login successful");
         console.log(user);
       } else {
+        toast.error("Login failed, check your internet connection");
         return;
       }
     },
