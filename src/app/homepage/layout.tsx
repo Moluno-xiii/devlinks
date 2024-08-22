@@ -11,6 +11,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -42,13 +43,14 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   if (loading) return <p>loading...</p>;
   return (
-    <div>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <div>
         <Header />
         <ToastContainer autoClose={3000} theme="light" position="top-right" />
         <div>{children}</div>
-      </QueryClientProvider>
-    </div>
+      </div>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 

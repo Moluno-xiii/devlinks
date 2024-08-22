@@ -14,6 +14,7 @@ import { Avatar, Button, useDisclosure } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import ChangeProfilePictureModal from "./ChangeProfilePictureModal";
+import { FaCamera } from "react-icons/fa";
 
 const UploadFile: React.FC = () => {
   const { user, profilePicture } = useSelector(
@@ -63,22 +64,22 @@ const UploadFile: React.FC = () => {
 
   if (profilePicture) {
     return (
-      <div>
+      <div className="relative">
         <Avatar src={profilePicture} className="h-40 w-40" />
-        {/* <Button
-          // onClick={handleUpload}
-          variant="solid"
-          color="primary"
-          className="mt-5 w-40 capitalize"
-          onPress={onOpen}
-        >
-          change profile picture
-        </Button>
         <ChangeProfilePictureModal
           isOpen={isOpen}
           onOpen={onOpen}
           onOpenChange={onOpenChange}
-        /> */}
+        />
+        <Button
+          isIconOnly
+          color="primary"
+          aria-label="change profile picture"
+           className="absolute -bottom-3"
+           onPress={onOpen}
+        >
+          <FaCamera />
+        </Button>
       </div>
     );
   }
