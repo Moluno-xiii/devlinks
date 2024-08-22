@@ -6,9 +6,15 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { fetchCurrentUser } from "../store/authSlice/authThunks";
 import { useSelector } from "react-redux";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const queryClient = new QueryClient();
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
@@ -37,9 +43,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   if (loading) return <p>loading...</p>;
   return (
     <div>
-      <Header />
-      <ToastContainer autoClose={3000} theme="light" position="top-right" />
-      <div>{children}</div>
+      <QueryClientProvider client={queryClient}>
+        <Header />
+        <ToastContainer autoClose={3000} theme="light" position="top-right" />
+        <div>{children}</div>
+      </QueryClientProvider>
     </div>
   );
 };

@@ -10,18 +10,20 @@ import UploadButton from "./UploadButton";
 import UseFetchProfilePicture from "@/hooks/UseFetchProfilePicture";
 import { FileType } from "@/types";
 import { getBase64 } from "@/utils/getBase64";
-import { Avatar, Button } from "@nextui-org/react";
+import { Avatar, Button, useDisclosure } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
+import ChangeProfilePictureModal from "./ChangeProfilePictureModal";
 
 const UploadFile: React.FC = () => {
   const { user, profilePicture } = useSelector(
     (state: RootState) => state.auth,
   );
-  console.log(profilePicture)
+  // console.log(profilePicture);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
-  const { fileList, setFileList } = UseFetchProfilePicture();
+  const { fileList, setFileList, isLoading, error } = UseFetchProfilePicture();
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -57,7 +59,29 @@ const UploadFile: React.FC = () => {
     }
   };
 
-  if (profilePicture.length > 1) return <Avatar src={profilePicture} className="w-20 h-20" />
+  if (isLoading) return <div>loading ...</div>;
+
+  if (profilePicture) {
+    return (
+      <div>
+        <Avatar src={profilePicture} className="h-40 w-40" />
+        {/* <Button
+          // onClick={handleUpload}
+          variant="solid"
+          color="primary"
+          className="mt-5 w-40 capitalize"
+          onPress={onOpen}
+        >
+          change profile picture
+        </Button>
+        <ChangeProfilePictureModal
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onOpenChange={onOpenChange}
+        /> */}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -70,6 +94,7 @@ const UploadFile: React.FC = () => {
       >
         {fileList.length >= 1 ? null : <UploadButton onClick={handleUpload} />}
       </Upload>
+
       <Image
         wrapperStyle={{ display: "none" }}
         preview={{
