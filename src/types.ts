@@ -22,7 +22,7 @@ interface LinkItem {
 }
 
 interface CreateLink {
-  user_id: string;
+  userId: string;
   link: string;
   platform: string;
 }

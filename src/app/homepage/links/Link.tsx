@@ -197,6 +197,9 @@ import { SiFrontendmentor, SiCodewars, SiHashnode } from 'react-icons/si';
 import { TfiEmail } from 'react-icons/tfi';
 import { TbWorldWww } from 'react-icons/tb';
 import { LinkItem } from '@/types';
+import { RootState } from '@/app/store/store';
+import { useSelector } from 'react-redux';
+import { uploadLink } from '@/utils/links_utils/link_functions';
 
 const _links: LinkItem[] = [
   {
@@ -270,12 +273,15 @@ const _links: LinkItem[] = [
 ];
 
 interface CreateLink {
-  user_id: string;
+  userId: string;
   link: string;
   platform: string;
 }
 
 function LinkForm() {
+    const { user, loading, errorMessage } = useSelector(
+    (state: RootState) => state.auth,
+  );
   const {
     control,
     register,
@@ -339,7 +345,7 @@ function LinkForm() {
           )}
         />
       </div>
-      <input type="hidden" {...register('user_id')} value="some-user-id" />
+      <input type="hidden" {...register('userId')} value={user.$id} />
       <button type="submit" className="mt-4 bg-blue-500 text-white px-4 py-2 bg-primary rounded">
         Submit
       </button>
@@ -350,7 +356,7 @@ function LinkForm() {
 export default LinkForm;
 
 // Mock function for uploadLink (replace with actual implementation)
-function uploadLink(data: CreateLink) {
-  // Implement your link upload logic here
-  console.log('Uploading link:', data);
-}
+// function uploadLink(data: CreateLink) {
+//   // Implement your link upload logic here
+//   console.log('Uploading link:', data);
+// }

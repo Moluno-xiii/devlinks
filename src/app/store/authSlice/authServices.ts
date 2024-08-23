@@ -63,14 +63,14 @@ async function updateVerification({ userId, secret }: UpdateVerification) {
   await account.updateVerification(userId, secret);
 }
 
-async function createLink({ user_id, link, platform }: CreateLink) {
+async function createLink({ userId, link, platform }: CreateLink) {
   try {
     const response = await databases.createDocument(
       database_id as string,
       collection_id as string,
       ID.unique(),
       {
-        user_id,
+        userId,
         link,
         platform,
       },
