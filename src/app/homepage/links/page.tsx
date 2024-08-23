@@ -34,12 +34,11 @@ const LinksComponent = (props: Props) => {
         {showAddLink && (
           <>
             <UserLinks closeAddLinkSection = {closeAddLinkSection} />
-            <div className="my-5 flex w-full flex-row items-center justify-between md:px-10">
+            <div className="my-5 mt-20 flex w-full flex-row items-center justify-between md:px-10">
               <Button
                 variant="ghost"
                 color="danger"
                 aria-label="close link modal button"
-                // className="mt-5 place-self-end"
                 size="sm"
                 onClick={closeAddLinkSection}
               >
@@ -50,7 +49,6 @@ const LinksComponent = (props: Props) => {
                 variant="ghost"
                 color="primary"
                 aria-label="save link button"
-                // className="mt-5 place-self-start"
                 size="sm"
               >
                 Save

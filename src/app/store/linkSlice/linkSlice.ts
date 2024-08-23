@@ -17,5 +17,4 @@ export const linkSlice = createSlice({
   initialState,
   reducers: {},
 });
-//   export const {isLoading, login, logout, setUser, setError } = linkSlice.actions
 export default linkSlice.reducer;

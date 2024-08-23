@@ -20,7 +20,6 @@ const UploadFile: React.FC = () => {
   const { user, profilePicture } = useSelector(
     (state: RootState) => state.auth,
   );
-  // console.log(profilePicture);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");

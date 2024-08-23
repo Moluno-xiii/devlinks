@@ -48,7 +48,7 @@ async function createUserAccount({ email, password, name }: CreateAccount) {
           }
         },
         10 * 60 * 1000,
-      ); // 10 minutes timeout
+      );
     }
     console.log("account created successfully, awaiting verification");
   } catch (error: any) {
@@ -104,10 +104,8 @@ async function loginUser({ email, password }: LoginAccount) {
     const isVerified = existingSession.emailVerification === true;
     if (existingSession) {
       if (isVerified) {
-        // login and route the user
         console.log(existingSession);
       } else {
-        // alert that they havent been verified and route them to the page that says they should check their inbox for their verification email
         await verifyUserAccount();
       }
     } else {
@@ -118,15 +116,12 @@ async function loginUser({ email, password }: LoginAccount) {
       const newSession = account.get();
       const isNewUserVerified = (await newSession).emailVerification === true;
       if (isNewUserVerified) {
-        // login and route the user
         console.log("logged in new user:", newSession);
       } else {
-        // alert that they havent been verified and route them to the page that says they should check their inbox for their verification email
         await verifyUserAccount();
       }
       console.log(userSession);
       console.log("user logged in sucessfully");
-      // route the user to the required page after login
     }
   } catch (error: any) {
     console.log(error.message);

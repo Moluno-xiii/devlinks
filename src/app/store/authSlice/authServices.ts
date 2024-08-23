@@ -103,7 +103,6 @@ async function getAvatar(file_id: string) {
     const response = await fetch(result.href, { method: 'HEAD' });
 
     if (response.ok) { 
-      // console.log(result);
       return result;
     } else {
       console.error("Invalid file URL, file may not exist");
@@ -124,9 +123,6 @@ const fetchImage = async (fileId: string) => {
     console.error("Error fetching image:", error);
   }
 };
-
-// use the authenticated user id to replace the uniqueID for storage and database purposes, cos the userid will always be available after login.
-// Also, separate concerns in this file, all functions that don't concern authentication should be moved to another file.
 
 export {
   createUserAccount,

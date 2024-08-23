@@ -3,7 +3,6 @@ import UploadFile from "./UploadFile";
 import { Button, Input } from "@nextui-org/react";
 
 type Props = {};
-// upload image, update name and email address
 function page({}: Props) {
   return (
     <div className="flex flex-col gap-y-5 p-4">

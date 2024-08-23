@@ -109,7 +109,6 @@ const UploadLinkForm = ({onCloseAddLink}: Props) => {
     
       const onSubmit = (data: CreateLink) => {
         uploadLink(data, onCloseAddLink);
-        // onCloseAddLink()
         console.log(data);
         console.log("form submitted");
       };
@@ -166,7 +165,7 @@ const UploadLinkForm = ({onCloseAddLink}: Props) => {
       />
     </div>
     <input type="hidden" {...register('userId')} value={user.$id} />
-    <button type="submit" className="mt-4 bg-blue-500 text-white px-4 py-2 bg-primary rounded">
+    <button type="submit" className="mb-4 bg-blue-500 text-white px-4 py-2 bg-primary rounded">
       Submit
     </button>
   </form>

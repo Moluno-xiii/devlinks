@@ -42,7 +42,6 @@ const fetchCurrentUser = createAsyncThunk(
       dispatch(setUser(user));
       return user;
     } catch (error: any) {
-      // dispatch(setError(error.message))
       dispatch(setUser(null));
     }
   },

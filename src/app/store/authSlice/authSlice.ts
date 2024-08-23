@@ -6,7 +6,7 @@ interface InitialStateProps {
   errorMessage: string;
   isAuthenticated: boolean;
   profilePicture: string;
-  user: any; // remember to set all the user props in user.ts
+  user: any;
 }
 
 const initialState: InitialStateProps = {
@@ -69,9 +69,3 @@ export const authSlice = createSlice({
 export const { isLoading, login, logout, setUser, setError, setProfilePicture } =
   authSlice.actions;
 export default authSlice.reducer;
-
-// login
-// check authentication state
-// logout user
-// create account
-// get current user session data
