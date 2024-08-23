@@ -8,6 +8,9 @@ type Props = {};
 
 const LinksComponent = (props: Props) => {
   const [showAddLink, setShowAddLink] = useState(false);
+  function closeAddLinkSection () {
+    setShowAddLink(false)
+  }
   return (
     <div className="flex items-center justify-center">
       <main className="flex w-[343px] flex-col items-center justify-center rounded-xl bg-white p-6 md:w-[721px]">
@@ -30,7 +33,7 @@ const LinksComponent = (props: Props) => {
         </Button>
         {showAddLink && (
           <>
-            <UserLinks />
+            <UserLinks closeAddLinkSection = {closeAddLinkSection} />
             <div className="my-5 flex w-full flex-row items-center justify-between md:px-10">
               <Button
                 variant="ghost"
@@ -38,7 +41,7 @@ const LinksComponent = (props: Props) => {
                 aria-label="close link modal button"
                 // className="mt-5 place-self-end"
                 size="sm"
-                onClick={() => setShowAddLink(false)}
+                onClick={closeAddLinkSection}
               >
                 close
               </Button>

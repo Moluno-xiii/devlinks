@@ -1,8 +1,9 @@
 import { CreateLink } from "@/types";
 import { collection_id, database_id, databases } from "../../../appwrite";
 import { ID } from "appwrite";
+import { toast } from "react-toastify";
 
-async function uploadLink(data: CreateLink) {
+async function uploadLink(data: CreateLink, func: () => void) {
   try {
     await databases.createDocument(
       database_id as string,
@@ -10,8 +11,12 @@ async function uploadLink(data: CreateLink) {
       ID.unique(),
       data,
     );
+    toast.success('Link uploaded successfully')
+    func()
+    
     console.log(data)
   } catch (error: any) {
+    toast.error('An error occured')
     console.log("an error occured");
     console.error("error happened :", error.message);
   }
