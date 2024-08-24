@@ -1,7 +1,8 @@
 import { CreateLink } from "@/types";
 import { collection_id, database_id, databases } from "../../../appwrite";
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 import { toast } from "react-toastify";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 async function uploadLink(data: CreateLink, func: () => void) {
   try {
@@ -22,4 +23,45 @@ async function uploadLink(data: CreateLink, func: () => void) {
   }
 }
 
-export { uploadLink };
+async function getLinks () {
+  try {
+    const result = await databases.listDocuments(
+      database_id as string,
+      collection_id as string,
+      [
+        Query.equal("userId", "66bb73470016621da43e" )
+      ]
+    )
+    console.log(result)
+    return result
+  } catch (error : any) {
+    console.error("An error occured, :" , error)
+    console.log(error.message)
+  }
+}
+
+const fetchLinks = createAsyncThunk(
+  "link/fetchLinks",
+  async (_, {dispatch, rejectWithValue}) => {
+    try {
+      const result = await databases.listDocuments(
+        database_id as string,
+        collection_id as string,
+        [
+          Query.equal("userId", "66bb73470016621da43e" )
+        ]
+      )
+      console.log(result)
+      return result
+    } catch (error : any) {
+      console.error("An error occured, :" , error)
+      console.log(error.message)
+      return rejectWithValue(error.message); 
+    }
+  }
+)
+
+
+// also create one normal function for fetching links, so you can use react query to fetch and set the links just once and use the links from the cache
+
+export { uploadLink, getLinks, fetchLinks };

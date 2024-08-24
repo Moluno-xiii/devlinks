@@ -14,10 +14,10 @@ import {
     FaLinkedin,
     FaStackOverflow,
     FaTwitch,
-    FaTwitter,
     FaWhatsapp,
     FaYoutube,
   } from "react-icons/fa";
+import { FaXTwitter } from 'react-icons/fa6';
 import { HiAtSymbol } from 'react-icons/hi';
 import { LuLink } from 'react-icons/lu';
 import { SiCodewars, SiFrontendmentor, SiHashnode } from 'react-icons/si';
@@ -34,8 +34,8 @@ const _links: LinkItem[] = [
       icon: <SiFrontendmentor />,
     },
     {
-      key: "Twitter",
-      icon: <FaTwitter />,
+      key: "X (FKA Twitter)",
+      icon: <FaXTwitter />,
     },
     {
       key: "LinkedIn",
@@ -112,6 +112,8 @@ const UploadLinkForm = ({onCloseAddLink}: Props) => {
         console.log(data);
         console.log("form submitted");
       };
+
+      const sortedLinks = _links.sort((a, b) => a.key.localeCompare(b.key))
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-center gap-y-3">
     <div className="flex flex-col gap-y-3">
@@ -129,7 +131,7 @@ const UploadLinkForm = ({onCloseAddLink}: Props) => {
             isInvalid={!!errors.platform}
             errorMessage={errors.platform?.message}
           >
-            {_links.map((link) => (
+            {sortedLinks.map((link) => (
               <SelectItem key={link.key} startContent={link.icon}>
                 {link.key}
               </SelectItem>
@@ -165,6 +167,7 @@ const UploadLinkForm = ({onCloseAddLink}: Props) => {
       />
     </div>
     <input type="hidden" {...register('userId')} value={user.$id} />
+    <input type="hidden" {...register('userName')} value={user.name} />
     <button type="submit" className="mb-4 bg-blue-500 text-white px-4 py-2 bg-primary rounded">
       Submit
     </button>

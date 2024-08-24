@@ -64,7 +64,7 @@ const UploadFile: React.FC = () => {
   if (profilePicture) {
     return (
       <div className="relative">
-        <Avatar src={profilePicture} className="h-40 w-40" />
+        <Avatar src={profilePicture} alt="Profile Picture" className="h-40 w-40" />
         <ChangeProfilePictureModal
           isOpen={isOpen}
           onOpen={onOpen}
