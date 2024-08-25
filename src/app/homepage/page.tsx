@@ -38,7 +38,6 @@ const HomePage: React.FC = () => {
           className="w-[295px] md:w-full"
           onClick={handleOpenLinks}
         >
-          {/* View your links when the link array is more than 0*/}
           Get Started
         </Button>
         <Button
@@ -47,7 +46,6 @@ const HomePage: React.FC = () => {
           className="w-[295px] md:w-full"
           onClick={logoutUser}
         >
-          {/* View your links when the link array is more than 0*/}
           Logout User
         </Button>
 

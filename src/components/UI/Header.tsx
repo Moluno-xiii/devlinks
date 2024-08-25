@@ -24,14 +24,14 @@ const Header: React.FC = () => {
         color="primary"
         size="lg"
       >
-        <Link href={`/preview/${user.$id}`}>Preview</Link>
+        <Link href={`/preview/${user?.$id}`}>Preview</Link>
       </Button>
       <Button
         className="flex sm:hidden"
         variant="ghost"
         aria-label="Route to preview page"
         color="primary"
-        onClick={() => router.push("/preview")}
+        onClick={() => router.push(`/preview/${user?.$id}`)}
         isIconOnly
       >
         <MdRemoveRedEye />

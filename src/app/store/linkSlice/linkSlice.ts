@@ -1,16 +1,21 @@
-import { fetchLinks, getLinks } from "@/utils/links_utils/link_functions";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialStateProps {
   loading: boolean;
   errorMessage: string;
-  links: string[];
+  links: {
+    documents : string[]
+    total : number
+  };
 }
 
 const initialState: InitialStateProps = {
   loading: false,
   errorMessage: "",
-  links: [],
+  links: {
+    documents : [],
+    total : 0
+  },
 };
 
 export const linkSlice = createSlice({
@@ -24,21 +29,6 @@ export const linkSlice = createSlice({
       state.errorMessage = action.payload
     },
     
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchLinks.pending, (state) => {
-        state.loading = true;
-        state.errorMessage = '';
-      })
-      .addCase(fetchLinks.fulfilled, (state, action) => {
-        state.loading = false;
-        state.links = action.payload;
-      })
-      .addCase(fetchLinks.rejected, (state, action) => {
-        state.loading = false;
-        state.errorMessage = action.payload as string
-      });
   },
 });
 

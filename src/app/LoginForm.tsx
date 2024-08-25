@@ -40,9 +40,9 @@ const LoginForm = (props: Props) => {
     },
     [dispatch],
   );
-
   useEffect(
     function () {
+      if (loading) return
       if (user && user.emailVerification === true) {
         setTimeout(() => {
           router.push("/homepage");
@@ -54,7 +54,7 @@ const LoginForm = (props: Props) => {
         return;
       }
     },
-    [user, router],
+    [user, loading, router],
   );
 
   if (errorMessage) toast.error(errorMessage);

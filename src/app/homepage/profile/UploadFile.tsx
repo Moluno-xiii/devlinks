@@ -43,7 +43,6 @@ const UploadFile: React.FC = () => {
       console.log("no fileList");
       return;
     }
-
     const file = fileList[0].originFileObj as RcFile;
     if (file) {
       try {

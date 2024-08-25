@@ -42,13 +42,13 @@ async function getLinks (userId : string) {
 
 const fetchLinks = createAsyncThunk(
   "link/fetchLinks",
-  async (_, {dispatch, rejectWithValue}) => {
+  async (userId : string, {dispatch, rejectWithValue}) => {
     try {
       const result = await databases.listDocuments(
         database_id as string,
         collection_id as string,
         [
-          Query.equal("userId", "66bb73470016621da43e" )
+          Query.equal("userId", userId )
         ]
       )
       console.log(result)

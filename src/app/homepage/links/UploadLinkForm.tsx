@@ -95,11 +95,12 @@ const _links: LinkItem[] = [
 type Props = {
     onCloseAddLink : () => void
 }
-
+export  const sortedLinks = _links.sort((a, b) => a.key.localeCompare(b.key))
 const UploadLinkForm = ({onCloseAddLink}: Props) => {
     const { user, loading, errorMessage } = useSelector(
         (state: RootState) => state.auth,
       );
+      
       const {
         control,
         register,
@@ -113,7 +114,7 @@ const UploadLinkForm = ({onCloseAddLink}: Props) => {
         console.log("form submitted");
       };
 
-      const sortedLinks = _links.sort((a, b) => a.key.localeCompare(b.key))
+ 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-center gap-y-3">
     <div className="flex flex-col gap-y-3">
