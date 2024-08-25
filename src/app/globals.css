@@ -2,15 +2,5 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .btn-secondary {
-    @apply focus:bg-light-purple rounded-lg border border-primary bg-white text-center font-semibold capitalize text-primary transition-all duration-300 h-[46px];
-  }
 
-  .btn-disabled {
-    @apply bg-opacity-25 text-opacity-25 cursor-not-allowed w-[311px] h-[46px] !important
-  }
-  .btn-primary {
-    @apply rounded-lg bg-primary h-[46px] text-center font-semibold capitalize text-white transition-all duration-300 focus:bg-purple-hover focus:text-opacity-25;
-  }
-}
+

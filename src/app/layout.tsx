@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Sans } from "next/font/google";
+import { Inter, Instrument_Sans, Roboto } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
+import { ClientProvider } from "./store/StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
-const instrument_sans = Instrument_Sans({ subsets: ["latin"] })
+const instrument_sans = Instrument_Sans({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "devlinks",
@@ -18,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${instrument_sans.className} bg-lightGrey text-dark-gray leading-[150%] min-h-[100dvh] min-w-[100vw]`}
+        className={`${instrument_sans.className} min-h-[100dvh] min-w-[100vw] bg-lightGrey leading-[150%] text-dark-gray`}
       >
-        {children}
+        <ClientProvider>
+          <Providers>{children}</Providers>
+        </ClientProvider>
       </body>
     </html>
   );
