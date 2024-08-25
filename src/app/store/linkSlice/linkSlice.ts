@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 interface InitialStateProps {
   loading: boolean;
   errorMessage: string;
-  links: {};
+  links: string[];
 }
 
 const initialState: InitialStateProps = {

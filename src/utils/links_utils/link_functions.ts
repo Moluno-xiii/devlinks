@@ -23,13 +23,13 @@ async function uploadLink(data: CreateLink, func: () => void) {
   }
 }
 
-async function getLinks () {
+async function getLinks (userId : string) {
   try {
     const result = await databases.listDocuments(
       database_id as string,
       collection_id as string,
       [
-        Query.equal("userId", "66bb73470016621da43e" )
+        Query.equal("userId", userId )
       ]
     )
     console.log(result)

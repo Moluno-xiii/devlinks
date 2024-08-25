@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@nextui-org/react";
 import { Avatar } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import {
   FaFreeCodeCamp,
   FaGithub,
@@ -19,29 +19,35 @@ import Loader from "@/components/UI/Loader";
 import { getAvatar } from "../store/authSlice/authServices";
 import { useQuery } from "@tanstack/react-query";
 
-
-type Props = {};
-const userId = "66bb73470016621da43e";
-// fetch the data using the id from the param instead of hardcoding
-
-const Preview = (props: Props) => {
+type Props = {
+  userId: string;
+};
+const Preview = ({ userId }: Props) => {
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["profilePic", userId],
+    queryFn: () => getAvatar(userId),
+  });
+  const {
+    isLoading: isLoadingLinks,
+    error: linkErrorMessage,
+    isSuccess,
+    data: links,
+  } = useQuery({
+    queryKey: ["getLinks", userId],
+    queryFn: () => getLinks(userId),
+  });
   const { user, profilePicture } = useSelector(
     (state: RootState) => state.auth,
   );
-  const { links, errorMessage, loading } = useSelector(
-    (state: RootState) => state.link,
-  );
   const dispatch = useDispatch<AppDispatch>();
+  // const { links, errorMessage, loading } = useSelector(
+  //   (state: RootState) => state.link,
+  // );
 
-  const { isLoading, error, isSuccess, data } = useQuery({
-    queryKey: ['profilePic', userId], 
-    queryFn: () => getAvatar(userId), 
-  });
-
-  if (loading || isLoading) return <Loader />;
-  if (error) return <div className="text-error">
-    an error occured
-  </div>
+  if (isLoading || isLoadingLinks) return <Loader />;
+  // if (loading || isLoading) return <Loader />;
+  if (error || linkErrorMessage)
+    return <div className="text-error">an error occured</div>;
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
@@ -61,7 +67,7 @@ const Preview = (props: Props) => {
           <span className="text-grey">{user?.email}</span>
         </div>
 
-        <div className="flex flex-col gap-y-5">
+        {/* <div className="flex flex-col gap-y-5">
           <ButtonLink bgColor="black" text="Github" leftIcon={<FaGithub />} />
           <ButtonLink
             bgColor="#EE3939"
@@ -90,7 +96,17 @@ const Preview = (props: Props) => {
           >
             fetch links
           </Button>
-        </div>
+        </div> */}
+        {links?.documents?.map((link) => (
+          <div key={link.$id}>
+            <ButtonLink
+              text={link?.platform.toLowerCase()}
+              leftIcon={<FaFreeCodeCamp />}
+              link={link.link}
+              bgColor="primary"
+            />
+          </div>
+        ))}
       </main>
       <div className="file absolute left-0 right-0 top-0 hidden h-[357px] rounded-b-[32px] bg-primary sm:block"></div>
     </div>
