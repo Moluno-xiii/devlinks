@@ -54,7 +54,6 @@ const Preview = ({ userId }: Props) => {
             src={data?.href}
           />
           <p className="text-3xl font-bold capitalize">{`${links?.documents[0].userName}'s profile`}</p>
-          {/* <p className="text-3xl font-bold capitalize">{`${user?.name}'s profile`}</p> */}
           <span className="text-grey">{user?.email}</span>
         </div>
         <div className="flex flex-col gap-y-5">

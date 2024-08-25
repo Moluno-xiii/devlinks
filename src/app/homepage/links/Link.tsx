@@ -19,8 +19,9 @@ type Props = {
 
 const Link = ({ link, index }: Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const {platform, $id, link : _link } = link
   return (
-    <li className="flex flex-col justify-center gap-y-3 bg-lightGrey p-5">
+    <li className="mx-auto mt-4 flex h-[300px] w-[295px] flex-col gap-y-3 rounded-xl bg-lightGrey p-5 md:w-[640px]">
       <div className="flex flex-row items-center justify-between">
         <span className="space-x-2 font-bold text-grey">
           <TbMenu className="inline-block" /> Link #{index + 1}
@@ -35,7 +36,7 @@ const Link = ({ link, index }: Props) => {
         </label>
         <Select
           startContent={<HiAtSymbol />}
-          defaultSelectedKeys={[link.platform]}
+          defaultSelectedKeys={[platform]}
           isDisabled
         >
           {sortedLinks.map((sortedLink) => (
@@ -52,7 +53,7 @@ const Link = ({ link, index }: Props) => {
         <Input
           startContent={<LuLink />}
           type="url"
-          value={link.link}
+          value={_link}
           disabled
           placeholder="e.g. https://www.github.com/my-profile"
         />
@@ -61,8 +62,9 @@ const Link = ({ link, index }: Props) => {
         Edit
       </Button>
         <EditLinkModal
-          platform ={link.platform}
-          link ={link.link}
+          platform ={platform}
+          link ={_link}
+          id = {$id}
           isOpen={isOpen}
           onOpen={onOpen}
           onOpenChange={onOpenChange}

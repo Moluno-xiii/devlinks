@@ -14,11 +14,13 @@ type Props = {
   onOpenChange: () => void;
   link: string;
   platform: string;
+  id : string;
 };
 
 const EditLinkModal = ({
   isOpen,
   link,
+  id,
   platform,
   onOpen,
   onOpenChange,
@@ -34,6 +36,7 @@ const EditLinkModal = ({
               </ModalHeader>
               <ModalBody>
                 <p>{platform}</p>
+                <p>{id}</p>
                 <p>{link}</p>
               </ModalBody>
               <ModalFooter>
@@ -53,3 +56,6 @@ const EditLinkModal = ({
 };
 
 export default EditLinkModal;
+
+
+

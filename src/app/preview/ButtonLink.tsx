@@ -36,7 +36,7 @@ const ButtonLink = ({ text, link }: Props) => {
       textColour = "black";
       icon = <SiFrontendmentor />;
       break;
-    case "twitter":
+    case "x (fka twitter)":
       bgColour = "#43B7E9";
       textColour = "white";
       icon = <FaXTwitter />;
