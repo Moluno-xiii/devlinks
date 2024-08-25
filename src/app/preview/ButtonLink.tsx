@@ -1,36 +1,110 @@
 import { Button } from "@nextui-org/react";
 import React from "react";
-import { FaArrowRight } from "react-icons/fa";
+import {
+  FaArrowRight,
+  FaDev,
+  FaFacebook,
+  FaFreeCodeCamp,
+  FaGithub,
+  FaGitlab,
+  FaInstagram,
+  FaLinkedin,
+  FaStackOverflow,
+  FaTwitch,
+  FaWhatsapp,
+  FaYoutube,
+} from "react-icons/fa";
+import { TbWorldWww } from "react-icons/tb";
+import { SiCodewars, SiFrontendmentor, SiHashnode } from "react-icons/si";
+import { FaXTwitter } from "react-icons/fa6";
 
 type Props = {
   text: string;
-  bgColor: string;
-  link? : string
-  leftIcon: React.ReactNode;
+  link?: string;
 };
-
-const ButtonLink = ({ text, leftIcon, bgColor, link }: Props) => {
+let bgColour;
+let textColour = "white";
+let icon: React.ReactNode = "";
+const ButtonLink = ({ text, link }: Props) => {
   switch (text) {
-    case "freecodecamp":
-      
+    case "github":
+      bgColour = "#1a1a1a";
+      icon = <FaGithub />;
       break;
-  
+    case "frontend mentor":
+      bgColour = "#FFFFFF";
+      textColour = "black";
+      icon = <SiFrontendmentor />;
+      break;
+    case "twitter":
+      bgColour = "#43B7E9";
+      textColour = "white";
+      icon = <FaXTwitter />;
+      break;
+    case "linkedin":
+      bgColour = "#2D68FF";
+      icon = <FaLinkedin />;
+      break;
+    case "youtube":
+      bgColour = "#EE3939";
+      icon = <FaYoutube />;
+      break;
+    case "facebook":
+      bgColour = "#2442AC";
+      icon = <FaFacebook />;
+      break;
+    case "twitch":
+      bgColour = "#EE3FC8";
+      icon = <FaTwitch />;
+      break;
+    case "instagram":
+      bgColour = "#E1306C";
+      bgColour = "#DD2A7B";
+      icon = <FaInstagram />;
+      break;
+    case "dev.to":
+      bgColour = "#333333";
+      icon = <FaDev />;
+      break;
+    case "codewars":
+      bgColour = "#8A1A50";
+      icon = <SiCodewars />;
+      break;
+    case "freecodecamp":
+      bgColour = "#302267";
+      icon = <FaFreeCodeCamp />;
+      break;
+    case "gitlab":
+      bgColour = "#EB4925";
+      icon = <FaGitlab />;
+      break;
+    case "hashnode":
+      bgColour = "#0330D1";
+      icon = <SiHashnode />;
+      break;
+    case "stack overflow":
+      bgColour = "#EC7100";
+      icon = <FaStackOverflow />;
+      break;
+    case "whatsapp":
+      bgColour = "green";
+      icon = <FaWhatsapp />;
     default:
+      bgColour = "#633CFF";
+      textColour = "white";
+      icon = <TbWorldWww />;
       break;
   }
   return (
     <Button
-      className="relative flex w-60 flex-row justify-start text-white"
-      style={{ backgroundColor: bgColor }}
+      className={`relative flex w-60 flex-row justify-start capitalize text-${textColour}`}
+      style={{ backgroundColor: bgColour }}
       size="lg"
-      startContent={leftIcon}
+      startContent={icon}
       endContent={<FaArrowRight className="absolute right-5" />}
+      onClick={() => window.open(link, "_blank")}
     >
-      {/* {text} */}
-      <a href=""></a>
-      <a href={link} className="capitalize" target="_blank" rel="noopener noreferrer">
-        {text}
-      </a>
+      {text}
     </Button>
   );
 };
