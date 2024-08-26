@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IoLockClosed, IoMail } from "react-icons/io5";
 import { Button, Input } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 type Props = {};
 const LoginForm = (props: Props) => {
+  const [isUserFetched, setIsUserFetched] = useState(false);
   const router = useRouter();
   const { user, loading, errorMessage } = useSelector(
     (state: RootState) => state.auth,
@@ -34,28 +35,32 @@ const LoginForm = (props: Props) => {
     console.log(data);
   };
 
-  useEffect(
-    function () {
-      dispatch(fetchCurrentUser());
-    },
-    [dispatch],
-  );
-  useEffect(
-    function () {
-      if (loading) return
-      if (user && user.emailVerification === true) {
-        setTimeout(() => {
-          router.push("/homepage");
-        }, 3000);
-        toast.success("Login successful");
-        console.log(user);
-      } else {
-        toast.error("Login failed, check your internet connection");
-        return;
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await dispatch(fetchCurrentUser()).unwrap();
+        setIsUserFetched(true); 
+      } catch (error) {
+        toast.error("An error occurred while fetching the user data.");
       }
-    },
-    [user, loading, router],
-  );
+    };
+  
+    fetchUser();
+  }, [dispatch]);
+  
+  useEffect(() => {
+    if (!isUserFetched || loading) return;
+  
+    if (user && user.emailVerification === true) {
+      setTimeout(() => {
+        router.push("/homepage");
+      }, 3000);
+      toast.success("Login successful");
+      console.log(user);
+    } else {
+      toast.error("Login failed, check your internet connection");
+    }
+  }, [isUserFetched, user, loading, router]);
 
   if (errorMessage) toast.error(errorMessage);
 
