@@ -8,13 +8,20 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
+import LinkForm from "./LinkForm";
+import { patchLink } from "@/utils/links_utils/link_functions";
+import { EditLink } from "@/types";
+import { InvalidateQueryFilters, useQueryClient } from "@tanstack/react-query";
+import { RootState } from "@/app/store/store";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 type Props = {
   isOpen: boolean;
   onOpen: () => void;
   onOpenChange: () => void;
   link: string;
   platform: string;
-  id : string;
+  id: string;
 };
 
 const EditLinkModal = ({
@@ -25,6 +32,25 @@ const EditLinkModal = ({
   onOpen,
   onOpenChange,
 }: Props) => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const queryClient = useQueryClient();
+
+  const onSubmit = (data: EditLink) => {
+    patchLink(id, data)
+      .then(() => {
+        queryClient.invalidateQueries([
+          "fetchLinks",
+          user.$id,
+        ] as InvalidateQueryFilters);
+      })
+      .catch((error: any) => {
+        toast.error(error.message);
+        console.error("Error updating link:", error);
+      });
+
+    console.log(data);
+    console.log("form submitted");
+  };
   return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -38,13 +64,15 @@ const EditLinkModal = ({
                 <p>{platform}</p>
                 <p>{id}</p>
                 <p>{link}</p>
+                <LinkForm
+                  onSubmit={onSubmit}
+                  defaultLinkValue={link}
+                  defaultPlatformValue={platform}
+                />
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Save Changes
                 </Button>
               </ModalFooter>
             </>
@@ -56,6 +84,3 @@ const EditLinkModal = ({
 };
 
 export default EditLinkModal;
-
-
-

@@ -31,8 +31,10 @@ const CreateAccountForm = (props: Props) => {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col items-center gap-y-2 sm:px-8"
+      aria-labelledby="create account form"
     >
       <Input
+        aria-labelledby="create account email input"
         variant="faded"
         label="Email"
         endContent={<IoMail />}
@@ -53,6 +55,7 @@ const CreateAccountForm = (props: Props) => {
       )}
 
       <Input
+        aria-labelledby="create account username input"
         variant="faded"
         label="Username"
         endContent={<FaUserAlt />}
@@ -73,6 +76,7 @@ const CreateAccountForm = (props: Props) => {
       )}
 
       <Input
+        aria-labelledby="create account password input"
         type="password"
         label="Create Password"
         isRequired
@@ -92,6 +96,7 @@ const CreateAccountForm = (props: Props) => {
         <FormValidationError errorMessage={errors.password.message as string} />
       )}
       <Input
+        aria-labelledby="create account confirm password input"
         type="password"
         label="Confirm Password"
         isRequired
@@ -112,6 +117,7 @@ const CreateAccountForm = (props: Props) => {
       )}
 
       <Button
+        aria-labelledby="create account submit button"
         variant="solid"
         color="primary"
         type="submit"
@@ -119,7 +125,6 @@ const CreateAccountForm = (props: Props) => {
       >
         Create Account
       </Button>
-
     </form>
   );
 };

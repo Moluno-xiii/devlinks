@@ -30,6 +30,7 @@ const ButtonLink = ({ text, link }: Props) => {
     case "github":
       bgColour = "#1a1a1a";
       icon = <FaGithub />;
+      textColour = "white";
       break;
     case "frontend mentor":
       bgColour = "#FFFFFF";
@@ -43,55 +44,67 @@ const ButtonLink = ({ text, link }: Props) => {
       break;
     case "linkedin":
       bgColour = "#2D68FF";
+      textColour = "white";
       icon = <FaLinkedin />;
       break;
     case "youtube":
       bgColour = "#EE3939";
       icon = <FaYoutube />;
+      textColour = "white";
       break;
     case "facebook":
       bgColour = "#2442AC";
+      textColour = "white";
       icon = <FaFacebook />;
       break;
     case "twitch":
       bgColour = "#EE3FC8";
       icon = <FaTwitch />;
+      textColour = "white";
       break;
     case "instagram":
-      bgColour = "#E1306C";
       bgColour = "#DD2A7B";
+      textColour = "white";
       icon = <FaInstagram />;
       break;
     case "dev.to":
       bgColour = "#333333";
       icon = <FaDev />;
+      textColour = "white";
       break;
     case "codewars":
       bgColour = "#8A1A50";
       icon = <SiCodewars />;
+      textColour = "white";
       break;
     case "freecodecamp":
       bgColour = "#302267";
       icon = <FaFreeCodeCamp />;
+      textColour = "white";
       break;
     case "gitlab":
       bgColour = "#EB4925";
       icon = <FaGitlab />;
+      textColour = "white";
       break;
     case "hashnode":
       bgColour = "#0330D1";
       icon = <SiHashnode />;
+      textColour = "white";
       break;
     case "stack overflow":
       bgColour = "#EC7100";
       icon = <FaStackOverflow />;
+      textColour = "white";
       break;
     case "whatsapp":
       bgColour = "green";
       icon = <FaWhatsapp />;
+      textColour = "white";
+      break;
     default:
       bgColour = "#633CFF";
-      textColour = "white";
+      textColour = "black";
       icon = <TbWorldWww />;
       break;
   }

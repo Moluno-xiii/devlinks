@@ -39,18 +39,18 @@ const LoginForm = (props: Props) => {
     const fetchUser = async () => {
       try {
         await dispatch(fetchCurrentUser()).unwrap();
-        setIsUserFetched(true); 
+        setIsUserFetched(true);
       } catch (error) {
         toast.error("An error occurred while fetching the user data.");
       }
     };
-  
+
     fetchUser();
   }, [dispatch]);
-  
+
   useEffect(() => {
     if (!isUserFetched || loading) return;
-  
+
     if (user && user.emailVerification === true) {
       setTimeout(() => {
         router.push("/homepage");
@@ -70,8 +70,10 @@ const LoginForm = (props: Props) => {
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center gap-y-2 sm:px-8"
+        aria-labelledby="user login form"
       >
         <Input
+          aria-labelledby="email input"
           type="email"
           label="Email"
           disabled={loading}
@@ -92,6 +94,7 @@ const LoginForm = (props: Props) => {
           <FormValidationError errorMessage={errors.email.message as string} />
         )}
         <Input
+          aria-labelledby="password input"
           variant="faded"
           label="Password"
           type="password"
@@ -118,10 +121,12 @@ const LoginForm = (props: Props) => {
           color="primary"
           type="submit"
           className="mt-4 w-full text-base font-semibold"
+          aria-labelledby="login button"
         >
           Login
         </Button>
         <Link
+          aria-labelledby="password reset link"
           href="password-reset"
           className="place-self-end text-xs text-error"
         >

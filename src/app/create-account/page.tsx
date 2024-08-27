@@ -21,19 +21,13 @@ export default function Home() {
 
         <CreateAccountForm />
 
-        {/* <Button
-          variant="solid"
-          onClick={checkEmailVerification}
-          color="primary"
-          type="submit"
-          className="mt-4 w-full text-base font-semibold"
-        >
-          Get current user
-        </Button> */}
-
         <div className="mt-6 flex flex-col items-center gap-x-1 sm:flex-row sm:justify-center">
           <span>Already have an account?</span>
-          <Link href="/" className="text-primary">
+          <Link
+            href="/"
+            aria-labelledby="link to login page"
+            className="text-primary"
+          >
             Login
           </Link>
         </div>
