@@ -1,8 +1,7 @@
-import { AppDispatch, RootState } from "@/app/store/store";
+import { RootState } from "@/app/store/store";
 import { CreateLink, LinkItem } from "@/types";
 import { uploadLink } from "@/utils/links_utils/link_functions";
 import React from "react";
-import { useForm } from "react-hook-form";
 import {
   FaDev,
   FaFacebook,
@@ -17,14 +16,14 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { SiCodewars, SiFrontendmentor, SiHashnode } from "react-icons/si";
+import { SiCodewars, SiFrontendmentor, SiHashnode, SiLeetcode, SiWakatime } from "react-icons/si";
 import { TbWorldWww } from "react-icons/tb";
 import LinkForm from "./LinkForm";
 import { InvalidateQueryFilters, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
-const _links: LinkItem[] = [
+export const _links: LinkItem[] = [
   {
     key: "Github",
     icon: <FaGithub />,
@@ -88,6 +87,14 @@ const _links: LinkItem[] = [
   {
     key: "Personal Website",
     icon: <TbWorldWww />,
+  },
+  {
+    key : "Leetcode",
+    icon : <SiLeetcode />
+  },
+  {
+    key: "WakaTime",
+    icon: <SiWakatime />,
   },
 ];
 

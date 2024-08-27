@@ -1,100 +1,14 @@
 import { RootState } from "@/app/store/store";
 import Loader from "@/components/UI/Loader";
-import { CreateLink, EditLink, LinkItem } from "@/types";
-import { uploadLink } from "@/utils/links_utils/link_functions";
+import { CreateLink } from "@/types";
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import {
-  FaDev,
-  FaFacebook,
-  FaFreeCodeCamp,
-  FaGithub,
-  FaGitlab,
-  FaInstagram,
-  FaLinkedin,
-  FaStackOverflow,
-  FaTwitch,
-  FaWhatsapp,
-  FaYoutube,
-} from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 import { HiAtSymbol } from "react-icons/hi";
 import { LuLink } from "react-icons/lu";
-import { SiCodewars, SiFrontendmentor, SiHashnode, SiLeetcode } from "react-icons/si";
-import { TbWorldWww } from "react-icons/tb";
 import { useSelector } from "react-redux";
+import { _links, sortedLinks } from "./UploadLinkForm";
 
-const _links: LinkItem[] = [
-  {
-    key: "Github",
-    icon: <FaGithub />,
-  },
-  {
-    key: "Frontend Mentor",
-    icon: <SiFrontendmentor />,
-  },
-  {
-    key: "X (FKA Twitter)",
-    icon: <FaXTwitter />,
-  },
-  {
-    key: "LinkedIn",
-    icon: <FaLinkedin />,
-  },
-  {
-    key: "Youtube",
-    icon: <FaYoutube />,
-  },
-  {
-    key: "Facebook",
-    icon: <FaFacebook />,
-  },
-  {
-    key: "Twitch",
-    icon: <FaTwitch />,
-  },
-  {
-    key: "Instagram",
-    icon: <FaInstagram />,
-  },
-  {
-    key: "Dev.to",
-    icon: <FaDev />,
-  },
-  {
-    key: "Codewars",
-    icon: <SiCodewars />,
-  },
-  {
-    key: "Freecodecamp",
-    icon: <FaFreeCodeCamp />,
-  },
-  {
-    key: "GitLab",
-    icon: <FaGitlab />,
-  },
-  {
-    key: "Hashnode",
-    icon: <SiHashnode />,
-  },
-  {
-    key: "Stack Overflow",
-    icon: <FaStackOverflow />,
-  },
-  {
-    key: "Whatsapp",
-    icon: <FaWhatsapp />,
-  },
-  {
-    key: "Personal Website",
-    icon: <TbWorldWww />,
-  },
-  {
-    key : "Leetcode",
-    icon : <SiLeetcode />
-  }
-];
 
 type Props = {
   onSubmit: (data: CreateLink) => void;
@@ -102,7 +16,6 @@ type Props = {
   defaultPlatformValue?: any;
   onClose?: () => void;
 };
-export const sortedLinks = _links.sort((a, b) => a.key.localeCompare(b.key));
 const LinkForm = ({
   onSubmit,
   defaultLinkValue,

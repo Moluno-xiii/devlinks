@@ -15,7 +15,7 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import { TbWorldWww } from "react-icons/tb";
-import { SiCodewars, SiFrontendmentor, SiHashnode, SiLeetcode } from "react-icons/si";
+import { SiCodewars, SiFrontendmentor, SiHashnode, SiLeetcode, SiWakatime } from "react-icons/si";
 import { FaXTwitter } from "react-icons/fa6";
 
 type Props = {
@@ -105,6 +105,11 @@ const ButtonLink = ({ text, link }: Props) => {
     case "leetcode":
       bgColour = "#FB8500";
       icon = <SiLeetcode />;
+      textColour = "white";
+      break;
+    case "wakatime":
+      bgColour = "#E76F51";
+      icon = <SiWakatime />;
       textColour = "white";
       break;
     default:
