@@ -124,6 +124,35 @@ const fetchImage = async (fileId: string) => {
   }
 };
 
+async function updateAvatar(imageFile: File, file_id : string) {
+  try {
+    await deleteAvatar(file_id)
+    const response = await storage.createFile(
+      bucket_id as string,
+      file_id,
+      imageFile,
+    );
+    console.log(response);
+    return response;
+  } catch (error: any) {
+    console.error("There was an error while uploading avatar :", error.message);
+    throw new Error();
+  }
+}
+async function deleteAvatar(file_id : string) {
+  try {
+    const response = await storage.deleteFile(
+      bucket_id as string,
+      file_id,
+    );
+    console.log(response);
+    return response;
+  } catch (error: any) {
+    console.error("There was an error while uploading avatar :", error.message);
+    throw new Error();
+  }
+}
+
 export {
   createUserAccount,
   loginUser,
@@ -134,4 +163,6 @@ export {
   uploadAvatar,
   getAvatar,
   fetchImage,
+  updateAvatar,
+  deleteAvatar
 };

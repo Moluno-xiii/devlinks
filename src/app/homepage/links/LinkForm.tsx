@@ -21,7 +21,7 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 import { HiAtSymbol } from "react-icons/hi";
 import { LuLink } from "react-icons/lu";
-import { SiCodewars, SiFrontendmentor, SiHashnode } from "react-icons/si";
+import { SiCodewars, SiFrontendmentor, SiHashnode, SiLeetcode } from "react-icons/si";
 import { TbWorldWww } from "react-icons/tb";
 import { useSelector } from "react-redux";
 
@@ -90,6 +90,10 @@ const _links: LinkItem[] = [
     key: "Personal Website",
     icon: <TbWorldWww />,
   },
+  {
+    key : "Leetcode",
+    icon : <SiLeetcode />
+  }
 ];
 
 type Props = {

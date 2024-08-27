@@ -1,16 +1,14 @@
 "use client";
-import { Button } from "@nextui-org/react";
 import { Avatar } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import ButtonLink from "./ButtonLink";
 import Header from "./Header";
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../store/store";
-import { fetchLinks, getLinks } from "@/utils/links_utils/link_functions";
-import { useDispatch } from "react-redux";
+import { getLinks } from "@/utils/links_utils/link_functions";
 import Loader from "@/components/UI/Loader";
 import { getAvatar } from "../store/authSlice/authServices";
 import { useQuery } from "@tanstack/react-query";
+import { RootState } from "../store/store";
 
 type Props = {
   userId: string;
@@ -23,14 +21,12 @@ const Preview = ({ userId }: Props) => {
   const {
     isLoading: isLoadingLinks,
     error: linkErrorMessage,
-    isSuccess,
     data: links,
   } = useQuery({
     queryKey: ["getLinks", userId],
     queryFn: () => getLinks(userId),
   });
   const { user } = useSelector((state: RootState) => state.auth);
-  const dispatch = useDispatch<AppDispatch>();
 
   if (isLoading || isLoadingLinks) return <Loader />;
   if (error || linkErrorMessage)
