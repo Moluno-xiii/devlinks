@@ -82,5 +82,24 @@ async function patchLink(document_id: string, data: EditLink ) {
     store.dispatch(setLoadingState(false))
   }
 }
+async function deleteLink(document_id: string) {
+  try {
+    store.dispatch(setLoadingState(true))
+    const result = await databases.deleteDocument(
+      database_id as string,
+      collection_id as string,
+      document_id,
+    );
+    console.log(result);
+    toast("Link deleted successfully");
+    return result;
+  } catch (error: any) {
+    toast.error(error.message);
+    console.error("An error occured, :", error);
+    console.log(error.message);
+  } finally {
+    store.dispatch(setLoadingState(false))
+  }
+}
 
-export { uploadLink, getLinks, fetchLinks, patchLink };
+export { uploadLink, getLinks, fetchLinks, patchLink, deleteLink };

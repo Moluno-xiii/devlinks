@@ -11,6 +11,8 @@ import { sortedLinks } from "./UploadLinkForm";
 import { LuLink } from "react-icons/lu";
 import { TbMenu } from "react-icons/tb";
 import EditLinkModal from "./EditLinkModal";
+import { deleteLink } from "@/utils/links_utils/link_functions";
+import DeleteLinkModal from "./DeleteLinkModal";
 
 type Props = {
   link: any;
@@ -19,7 +21,10 @@ type Props = {
 
 const Link = ({ link, index }: Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen : deleteModalOpen, onOpen : openDeleteModal, onOpenChange : onOpenChangeDelete } = useDisclosure();
   const { platform, $id, link: _link } = link;
+
+ 
   return (
     <li
       className="mx-auto mt-4 flex h-[300px] w-[295px] flex-col gap-y-3 rounded-xl bg-lightGrey p-5 md:w-[640px]"
@@ -35,6 +40,7 @@ const Link = ({ link, index }: Props) => {
           className="w-10"
           variant="ghost"
           color="danger"
+          onPress={openDeleteModal}
         >
           Delete
         </Button>
@@ -68,7 +74,7 @@ const Link = ({ link, index }: Props) => {
         />
       </div>
       <Button
-        size="sm"
+        // size="sm"
         onPress={onOpen}
         className="w-10"
         variant="ghost"
@@ -84,6 +90,14 @@ const Link = ({ link, index }: Props) => {
         isOpen={isOpen}
         onOpen={onOpen}
         onOpenChange={onOpenChange}
+      />
+      <DeleteLinkModal
+        platform={platform}
+        link={_link}
+        id={$id}
+        isOpen={deleteModalOpen}
+        onOpen={openDeleteModal}
+        onOpenChange={onOpenChangeDelete}
       />
     </li>
   );
