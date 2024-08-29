@@ -6,11 +6,8 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  useDisclosure,
 } from "@nextui-org/react";
-import LinkForm from "./LinkForm";
-import { patchLink } from "@/utils/links_utils/link_functions";
-import { EditLink } from "@/types";
+import { deleteLink } from "@/utils/links_utils/link_functions";
 import { InvalidateQueryFilters, useQueryClient } from "@tanstack/react-query";
 import { RootState } from "@/app/store/store";
 import { useSelector } from "react-redux";
@@ -24,20 +21,17 @@ type Props = {
   id: string;
 };
 
-const EditLinkModal = ({
+const DeleteLinkModal = ({
   isOpen,
-  link,
   id,
-  platform,
   onOpen,
   onOpenChange,
 }: Props) => {
   const { user } = useSelector((state: RootState) => state.auth);
+  const { loading } = useSelector((state: RootState) => state.link);
   const queryClient = useQueryClient();
-
-  const onSubmit = (data: EditLink) => {
-    patchLink(id, data)
-      .then(() => {
+  const onDeleteLink = () => {
+    deleteLink(id).then(() => {
         queryClient.invalidateQueries([
           "fetchLinks",
           user.$id,
@@ -47,10 +41,8 @@ const EditLinkModal = ({
         toast.error(error.message);
         console.error("Error updating link:", error);
       });
+  }
 
-    console.log(data);
-    console.log("form submitted");
-  };
   return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -58,18 +50,17 @@ const EditLinkModal = ({
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Edit Link
+                Delete Link
               </ModalHeader>
               <ModalBody>
-                <LinkForm
-                  onSubmit={onSubmit}
-                  defaultLinkValue={link}
-                  defaultPlatformValue={platform}
-                />
+                <p>Are you sure you want to delete this link</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                  No
+                </Button>
+                <Button isLoading={loading} color="primary" onClick={onDeleteLink}>
+                  Yes
                 </Button>
               </ModalFooter>
             </>
@@ -80,4 +71,4 @@ const EditLinkModal = ({
   );
 };
 
-export default EditLinkModal;
+export default DeleteLinkModal;

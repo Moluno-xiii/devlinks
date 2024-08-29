@@ -1,16 +1,14 @@
 "use client";
-import { Button } from "@nextui-org/react";
 import { Avatar } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import ButtonLink from "./ButtonLink";
 import Header from "./Header";
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../store/store";
-import { fetchLinks, getLinks } from "@/utils/links_utils/link_functions";
-import { useDispatch } from "react-redux";
+import { getLinks } from "@/utils/links_utils/link_functions";
 import Loader from "@/components/UI/Loader";
 import { getAvatar } from "../store/authSlice/authServices";
 import { useQuery } from "@tanstack/react-query";
+import { RootState } from "../store/store";
 
 type Props = {
   userId: string;
@@ -23,14 +21,12 @@ const Preview = ({ userId }: Props) => {
   const {
     isLoading: isLoadingLinks,
     error: linkErrorMessage,
-    isSuccess,
     data: links,
   } = useQuery({
     queryKey: ["getLinks", userId],
     queryFn: () => getLinks(userId),
   });
   const { user } = useSelector((state: RootState) => state.auth);
-  const dispatch = useDispatch<AppDispatch>();
 
   if (isLoading || isLoadingLinks) return <Loader />;
   if (error || linkErrorMessage)
@@ -42,7 +38,7 @@ const Preview = ({ userId }: Props) => {
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
-      <Header />
+      <Header userId = {user?.$id} />
 
       <main className="z-10 mx-auto mt-10 flex flex-col items-center overflow-y-auto py-3 sm:mt-36 sm:h-[560px] sm:w-[350px] sm:rounded-xl sm:bg-white sm:shadow-sm">
         <div className="mb-14 flex flex-col items-center gap-y-6">
@@ -54,7 +50,6 @@ const Preview = ({ userId }: Props) => {
             src={data?.href}
           />
           <p className="text-3xl font-bold capitalize">{`${links?.documents[0].userName}'s profile`}</p>
-          {/* <p className="text-3xl font-bold capitalize">{`${user?.name}'s profile`}</p> */}
           <span className="text-grey">{user?.email}</span>
         </div>
         <div className="flex flex-col gap-y-5">

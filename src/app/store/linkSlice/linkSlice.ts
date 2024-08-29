@@ -27,10 +27,12 @@ export const linkSlice = createSlice({
     },
     setErrorMessage(state, action){
       state.errorMessage = action.payload
-    },
+    },setLoadingState ( state, action){
+      state.loading = action.payload
+    }
     
   },
 });
 
-export const {setLinks, setErrorMessage} = linkSlice.actions
+export const {setLinks, setErrorMessage, setLoadingState} = linkSlice.actions
 export default linkSlice.reducer;

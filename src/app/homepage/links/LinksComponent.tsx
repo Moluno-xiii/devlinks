@@ -35,7 +35,7 @@ const LinksComponent = (props: Props) => {
         {showAddLink && (
           <>
             <AddLink closeAddLinkSection={closeAddLinkSection} />
-            <div className="my-5 mt-20 flex w-full flex-row items-center justify-between md:px-10">
+            <div className="my-5 md:mt-10 max-md:mt-12 flex w-full flex-row items-center justify-between md:px-10">
               <Button
                 variant="ghost"
                 color="danger"
@@ -57,7 +57,7 @@ const LinksComponent = (props: Props) => {
             </div>
           </>
         )}
-<UserLinks />
+        <UserLinks />
       </main>
     </div>
   );

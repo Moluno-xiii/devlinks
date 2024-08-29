@@ -25,13 +25,7 @@ function page({}: Props) {
         <Input
           isRequired
           type="text"
-          label="First name"
-          placeholder="e.g. Sonia"
-        />
-        <Input
-          isRequired
-          type="text"
-          label="Last name"
+          label="Username"
           placeholder="e.g. Omotola"
         />
         <Input

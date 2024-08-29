@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import ChangeProfilePictureModal from "./ChangeProfilePictureModal";
 import { FaCamera } from "react-icons/fa";
+import Loader from "@/components/UI/Loader";
 
 const UploadFile: React.FC = () => {
   const { user, profilePicture } = useSelector(
@@ -58,12 +59,16 @@ const UploadFile: React.FC = () => {
     }
   };
 
-  if (isLoading) return <div>loading ...</div>;
+  if (isLoading) return <Loader />;
 
   if (profilePicture) {
     return (
       <div className="relative">
-        <Avatar src={profilePicture} alt="Profile Picture" className="h-40 w-40" />
+        <Avatar
+          src={profilePicture}
+          alt="Profile Picture"
+          className="h-40 w-40"
+        />
         <ChangeProfilePictureModal
           isOpen={isOpen}
           onOpen={onOpen}
@@ -73,8 +78,8 @@ const UploadFile: React.FC = () => {
           isIconOnly
           color="primary"
           aria-label="change profile picture"
-           className="absolute -bottom-3"
-           onPress={onOpen}
+          className="absolute -bottom-3"
+          onPress={onOpen}
         >
           <FaCamera />
         </Button>
@@ -89,6 +94,7 @@ const UploadFile: React.FC = () => {
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        
         beforeUpload={() => false}
       >
         {fileList.length >= 1 ? null : <UploadButton onClick={handleUpload} />}

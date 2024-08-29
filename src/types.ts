@@ -27,7 +27,11 @@ interface CreateLink {
   link: string;
   platform: string;
 }
+interface EditLink {
+  link: string;
+  platform: string;
+}
 
 export type FileType = UploadFile["originFileObj"];
 
-export type { Login, CreateAccount, UpdateVerification, LinkItem, CreateLink };
+export type { Login, CreateAccount, UpdateVerification, LinkItem, CreateLink, EditLink };
