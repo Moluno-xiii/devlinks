@@ -94,6 +94,7 @@ const UploadFile: React.FC = () => {
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        
         beforeUpload={() => false}
       >
         {fileList.length >= 1 ? null : <UploadButton onClick={handleUpload} />}

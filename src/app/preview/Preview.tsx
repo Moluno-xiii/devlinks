@@ -38,7 +38,7 @@ const Preview = ({ userId }: Props) => {
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
-      <Header />
+      <Header userId = {user?.$id} />
 
       <main className="z-10 mx-auto mt-10 flex flex-col items-center overflow-y-auto py-3 sm:mt-36 sm:h-[560px] sm:w-[350px] sm:rounded-xl sm:bg-white sm:shadow-sm">
         <div className="mb-14 flex flex-col items-center gap-y-6">
