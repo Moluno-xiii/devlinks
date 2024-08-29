@@ -1,4 +1,4 @@
-import { ID } from "appwrite";
+import { ID } from 'appwrite';
 import {
   account,
   bucket_id,
@@ -6,8 +6,9 @@ import {
   database_id,
   databases,
   storage,
-} from "../../../../appwrite";
-import { CreateAccount, CreateLink, Login, UpdateVerification } from "@/types";
+} from '../../../../appwrite';
+import { toast } from 'react-toastify';
+import { CreateAccount, CreateLink, Login, UpdateVerification } from '@/types';
 
 const createUserAccount = async ({ email, password, name }: CreateAccount) => {
   return await account.create(ID.unique(), email, password, name);
@@ -23,12 +24,12 @@ const loginUser = async ({ email, password }: Login) => {
         return existingSession;
       } else {
         await verifyUserAccount();
-        throw new Error("Email not verified. Please check your inbox.");
+        throw new Error('Email not verified. Please check your inbox.');
       }
     } else {
       const userSession = await account.createEmailPasswordSession(
         email,
-        password,
+        password
       );
       const newSession = await account.get();
       const isNewUserVerified = newSession.emailVerification === true;
@@ -37,7 +38,7 @@ const loginUser = async ({ email, password }: Login) => {
         return newSession;
       } else {
         await verifyUserAccount();
-        throw new Error("Email not verified. Please check your inbox.");
+        throw new Error('Email not verified. Please check your inbox.');
       }
     }
   } catch (error: any) {
@@ -46,11 +47,11 @@ const loginUser = async ({ email, password }: Login) => {
 };
 
 const logoutUser = async () => {
-  return await account.deleteSession("current");
+  return await account.deleteSession('current');
 };
 
 async function verifyUserAccount() {
-  return await account.createVerification("http://localhost:3000/verify");
+  return await account.createVerification('http://localhost:3000/verify');
 }
 
 async function checkEmailVerification() {
@@ -73,25 +74,25 @@ async function createLink({ userId, link, platform }: CreateLink) {
         userId,
         link,
         platform,
-      },
+      }
     );
   } catch (error: any) {
-    console.error("Error creating link :", error.message);
+    console.error('Error creating link :', error.message);
     throw new Error(error.message);
   }
 }
 
-async function uploadAvatar(imageFile: File, file_id : string) {
+async function uploadAvatar(imageFile: File, file_id: string) {
   try {
     const response = await storage.createFile(
       bucket_id as string,
       file_id,
-      imageFile,
+      imageFile
     );
     console.log(response);
     return response;
   } catch (error: any) {
-    console.error("There was an error while uploading avatar :", error.message);
+    console.error('There was an error while uploading avatar :', error.message);
     throw new Error();
   }
 }
@@ -102,54 +103,74 @@ async function getAvatar(file_id: string) {
 
     const response = await fetch(result.href, { method: 'HEAD' });
 
-    if (response.ok) { 
+    if (response.ok) {
       return result;
     } else {
-      console.error("Invalid file URL, file may not exist");
-      throw new Error("Failed to fetch avatar: Invalid file URL");
+      console.error('Invalid file URL, file may not exist');
+      throw new Error('Failed to fetch avatar: Invalid file URL');
     }
   } catch (error: any) {
-    console.error("There was an error while fetching avatar:", error.message);
-    throw new Error("Failed to fetch avatar");
+    console.error('There was an error while fetching avatar:', error.message);
+    throw new Error('Failed to fetch avatar');
   }
 }
-
 
 const fetchImage = async (fileId: string) => {
   try {
     const url = storage.getFileView(bucket_id as string, fileId);
     console.log(url);
   } catch (error) {
-    console.error("Error fetching image:", error);
+    console.error('Error fetching image:', error);
   }
 };
 
-async function updateAvatar(imageFile: File, file_id : string) {
+async function updateAvatar(imageFile: File, file_id: string) {
   try {
-    await deleteAvatar(file_id)
+    await deleteAvatar(file_id);
     const response = await storage.createFile(
       bucket_id as string,
       file_id,
-      imageFile,
+      imageFile
     );
     console.log(response);
     return response;
   } catch (error: any) {
-    console.error("There was an error while uploading avatar :", error.message);
+    console.error('There was an error while uploading avatar :', error.message);
     throw new Error();
   }
 }
-async function deleteAvatar(file_id : string) {
+async function deleteAvatar(file_id: string) {
   try {
-    const response = await storage.deleteFile(
-      bucket_id as string,
-      file_id,
-    );
+    const response = await storage.deleteFile(bucket_id as string, file_id);
     console.log(response);
     return response;
   } catch (error: any) {
-    console.error("There was an error while uploading avatar :", error.message);
+    console.error('There was an error while uploading avatar :', error.message);
     throw new Error();
+  }
+}
+
+async function passwordRecovery(email: string) {
+  try {
+    await account.createRecovery(email, 'http://localhost:3000/password-reset');
+    toast.success('Password recovery sent successfully!, check your inbox.');
+  } catch (error) {
+    console.error('Error sending password recovery link:', error);
+    toast.error('Failed to send password recovery link. Please try again.');
+  }
+}
+
+async function updateRecovery(
+  password: string,
+  userId: string,
+  secret: string
+) {
+  try {
+    await account.updateRecovery(userId, secret, password);
+    toast.success('Password updated successfully successfully!');
+  } catch (error) {
+    console.error('Error updating password:', error);
+    toast.error('Failed to update password. Please try again.');
   }
 }
 
@@ -164,5 +185,7 @@ export {
   getAvatar,
   fetchImage,
   updateAvatar,
-  deleteAvatar
+  deleteAvatar,
+  passwordRecovery,
+  updateRecovery,
 };

@@ -11,7 +11,6 @@ const UserComponent = (props: Props) => {
   const params = useParams();
   const userID = params.userID as string;  
   console.log(userID);
-  const router = useRouter();
   return (
     <div>
       <QueryClientProvider client={queryClient}>

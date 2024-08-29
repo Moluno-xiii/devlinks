@@ -2,7 +2,8 @@
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Preview from "../preview/Preview";
+import UserLinksPage from "./UserLinksPage";
+import Header from "./Header";
 const queryClient = new QueryClient();
 
 type Props = {};
@@ -13,7 +14,8 @@ const UserComponent = (props: Props) => {
   return (
     <div>
       <QueryClientProvider client={queryClient}>
-        <Preview userId = {userID} />
+        <Header />
+        <UserLinksPage userId = {userID} />
       </QueryClientProvider>
     </div>
   );

@@ -16,7 +16,6 @@ const ErrorComponent = (props: Props) => {
         exist.
       </p>
       <Button type="button" color="danger" startContent={<FaBackward />} variant="ghost" onClick={() => router.back()}>
-        {/* <Link href="/homepage">Return to homepage</Link> */}
         Go back 
       </Button>
     </div>

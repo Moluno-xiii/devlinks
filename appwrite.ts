@@ -135,6 +135,7 @@ async function passwordRecovery(email: string) {
     "http://localhost:3000/password-reset",
   );
 }
+
 async function updateRecovery(
   password: string,
   userId: string,

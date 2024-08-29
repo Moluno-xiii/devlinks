@@ -127,7 +127,7 @@ const LoginForm = (props: Props) => {
         </Button>
         <Link
           aria-labelledby="password reset link"
-          href="password-reset"
+          href="forgot-password"
           className="place-self-end text-xs text-error"
         >
           Forgot Password ?
