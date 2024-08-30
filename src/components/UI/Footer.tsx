@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React from 'react';
 
 type Props = {};
@@ -11,7 +10,7 @@ const Footer = (props: Props) => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        &copy; Chukwuemeke
+        Created by &copy;Chukwuemeke
       </a>
     </div>
   );

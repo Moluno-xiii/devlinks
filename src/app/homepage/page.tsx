@@ -3,20 +3,13 @@ import Image from "next/image";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../store/store";
-import { logout } from "../store/authSlice/authThunks";
-import { useDispatch } from "react-redux";
+import { RootState } from "../store/store";
 
 const HomePage: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>()
   const handleOpenLinks = () => {
     router.push("/homepage/links");
   };
 
-  const logoutUser = () => {
-    dispatch(logout())
-    router.push("/");
-  };
   const router = useRouter();
   const { user } = useSelector((state: RootState) => state.auth);
 

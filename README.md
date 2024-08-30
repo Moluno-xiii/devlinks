@@ -15,5 +15,3 @@ Welcome to the **Link Sharing App**! This tool is designed to help you streamlin
 - **Tailwind CSS**: A utility-first CSS framework for creating custom designs with ease.
 - **TypeScript**: A strongly-typed programming language that enhances JavaScript with static types.
 - **Appwrite**: Backend as a service.
-
-## Getting Started

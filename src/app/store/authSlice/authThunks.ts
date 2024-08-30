@@ -26,6 +26,7 @@ const logout = createAsyncThunk(
     try {
       await logoutUser();
       localStorage.removeItem('user');
+      
       dispatch(setUser(null));
     } catch (error: any) {
       return rejectWithValue(error.message);
