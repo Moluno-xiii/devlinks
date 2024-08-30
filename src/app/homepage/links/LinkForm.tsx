@@ -92,6 +92,7 @@ const LinkForm = ({
       </div>
       <input type="hidden" {...register("userId")} value={user.$id} />
       <input type="hidden" {...register("userName")} value={user.name} />
+      <input type="hidden" {...register("userEmail")} value={user.email} />
       <Button
         type="submit"
         onPress={onClose}

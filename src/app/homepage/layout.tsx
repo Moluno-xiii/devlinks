@@ -34,7 +34,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
     if (isAuthChecked && !user) {
       toast.error('Please log in to access this page.');
-      router.push('/login');
+      router.push('/');
     }
   }, [isAuthChecked, user, router]);
 

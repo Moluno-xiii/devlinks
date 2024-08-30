@@ -69,12 +69,12 @@ const UploadFile: React.FC = () => {
           alt="Profile Picture"
           className="h-40 w-40"
         />
-        <ChangeProfilePictureModal
+        {/* <ChangeProfilePictureModal
           isOpen={isOpen}
           onOpen={onOpen}
           onOpenChange={onOpenChange}
-        />
-        <Button
+        /> */}
+        {/* <Button
           isIconOnly
           color="primary"
           aria-label="change profile picture"
@@ -82,7 +82,7 @@ const UploadFile: React.FC = () => {
           onPress={onOpen}
         >
           <FaCamera />
-        </Button>
+        </Button> */}
       </div>
     );
   }
@@ -125,3 +125,4 @@ const UploadFile: React.FC = () => {
 };
 
 export default UploadFile;
+

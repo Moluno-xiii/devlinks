@@ -33,7 +33,6 @@ const LoginForm = (props: Props) => {
   const onSubmit = (data: Login) => {
     const { email, password } = data;
     dispatch(login({ email, password }));
-    console.log(data);
   };
 
   useEffect(() => {
@@ -43,7 +42,6 @@ const LoginForm = (props: Props) => {
         if (stored_user) {
           const parsedUser = JSON.parse(stored_user);
           dispatch(setUser(parsedUser));
-          console.log(parsedUser);
         }
         setIsUserFetched(true);
       } catch (error) {
@@ -57,14 +55,14 @@ const LoginForm = (props: Props) => {
   useEffect(() => {
     if (!isUserFetched || loading) return;
     try {
-      if (user && user.emailVerification === true) {
+      if (user ) {
+      // if (user && user.emailVerification === true) {
         setTimeout(() => {
           router.push('/homepage');
         }, 3000);
         toast.success('Login successful');
-        console.log(user);
       } else {
-        toast.error('Login failed, check your internet connection');
+        toast.error('No active session');
       }
     } catch (error: any) {
       toast.error(error.message);

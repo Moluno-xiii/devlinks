@@ -16,7 +16,8 @@ const Verification = (props: Props) => {
   const { user } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    if (user && user.emailVerification) {
+    if (user) {
+    // if (user && user.emailVerification) {
       router.push("/homepage");
     }
     if (userId && secret) {
@@ -26,7 +27,7 @@ const Verification = (props: Props) => {
           console.log("login successful");
           console.log(secret);
           console.log(userId);
-          router.push("/login");
+          router.push("/");
         })
         .catch((error) => {
           console.log("Verification failed", error);

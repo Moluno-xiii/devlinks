@@ -28,7 +28,8 @@ async function uploadLink(data: CreateLink, func: () => void) {
   }
 }
 
-async function getLinks(userId: string) {
+async function getLinks(userId : string) {
+  // if (!user.emailVerification) return {documents : [], total : 0};
   try {
     const result = await databases.listDocuments(
       database_id as string,

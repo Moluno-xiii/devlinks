@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { loginUser, logoutUser } from './authServices';
-import { Login } from '@/types';
+import { logoutUser } from './authServices';
+import { CreateAccount, Login } from '@/types';
 import { account } from '../../../../appwrite';
 import { setLoading, setUser } from './authSlice';
 import { toast } from 'react-toastify';

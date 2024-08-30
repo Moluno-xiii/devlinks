@@ -11,7 +11,6 @@ import { sortedLinks } from "./UploadLinkForm";
 import { LuLink } from "react-icons/lu";
 import { TbMenu } from "react-icons/tb";
 import EditLinkModal from "./EditLinkModal";
-import { deleteLink } from "@/utils/links_utils/link_functions";
 import DeleteLinkModal from "./DeleteLinkModal";
 
 type Props = {

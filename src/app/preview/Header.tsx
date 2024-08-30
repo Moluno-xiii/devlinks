@@ -2,13 +2,15 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { toast, ToastContainer } from "react-toastify";
+import { RootState } from "../store/store";
+import { useSelector } from "react-redux";
 
 type Props = {
-  userId: string;
 };
 
-const Header = ({ userId }: Props) => {
-  const shareUrl = `localhost:3000/${userId}`;
+const Header = ({ }: Props) => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const shareUrl = `localhost:3000/${user?.$id}`;
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);

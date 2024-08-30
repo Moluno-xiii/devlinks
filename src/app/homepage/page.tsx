@@ -40,14 +40,6 @@ const HomePage: React.FC = () => {
         >
           Get Started
         </Button>
-        <Button
-          variant="ghost"
-          color="primary"
-          className="w-[295px] md:w-full"
-          onClick={logoutUser}
-        >
-          Logout User
-        </Button>
 
         <section className="my-10 flex flex-col items-center justify-center gap-3 rounded-xl border-b border-lightGrey bg-lightGrey px-5 py-10 text-black md:w-full">
           <Image

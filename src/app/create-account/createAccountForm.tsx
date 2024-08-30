@@ -1,11 +1,17 @@
-"use client";
-import React from "react";
-import { IoLockClosed, IoMail } from "react-icons/io5";
-import { Button, Input } from "@nextui-org/react";
-import { useForm } from "react-hook-form";
-import FormValidationError from "@/components/UI/FormValidationError";
-import { createUserAccount } from "../../../appwrite";
-import { FaUserAlt } from "react-icons/fa";
+'use client';
+import React from 'react';
+import { IoLockClosed, IoMail } from 'react-icons/io5';
+import { Button, Input } from '@nextui-org/react';
+import { useForm } from 'react-hook-form';
+import FormValidationError from '@/components/UI/FormValidationError';
+// import { createUserAccount } from "../../../appwrite";
+
+import { FaUserAlt } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store/store';
+import { toast, ToastContainer } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+import { createUserAccount } from '../store/authSlice/authServices';
 type Props = {};
 
 interface CreateAccountFormData {
@@ -21,13 +27,25 @@ const CreateAccountForm = (props: Props) => {
     getValues,
     formState: { errors },
   } = useForm<CreateAccountFormData>();
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter()
 
-  const onSubmit = (data: CreateAccountFormData) => {
+  const onSubmit = async (data: CreateAccountFormData) => {
     const { email, password, name } = data;
     console.log(data);
-    createUserAccount({ email, password, name });
+    try {
+      await createUserAccount({email, password, name}, dispatch)
+      toast.success("Account created successfully")
+      setTimeout(() => {
+        router.push("/")
+      }, 3000);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
   return (
+    <>
+    <ToastContainer />
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col items-center gap-y-2 sm:px-8"
@@ -42,11 +60,11 @@ const CreateAccountForm = (props: Props) => {
         description="e.g akeye@gmail.com"
         labelPlacement="outside"
         isRequired
-        {...register("email", {
-          required: "Email is required",
+        {...register('email', {
+          required: 'Email is required',
           pattern: {
             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "Invalid email address",
+            message: 'Invalid email address',
           },
         })}
       />
@@ -63,11 +81,11 @@ const CreateAccountForm = (props: Props) => {
         labelPlacement="outside"
         description="At least 3 characters"
         isRequired
-        {...register("name", {
-          required: "Enter a valid username",
+        {...register('name', {
+          required: 'Enter a valid username',
           pattern: {
             value: /^[a-zA-Z0-9._]{3,20}$/,
-            message: "Invalid user name",
+            message: 'Invalid user name',
           },
         })}
       />
@@ -83,11 +101,11 @@ const CreateAccountForm = (props: Props) => {
         labelPlacement="outside"
         description="At least 8 characters"
         variant="faded"
-        {...register("password", {
-          required: "Password is required",
+        {...register('password', {
+          required: 'Password is required',
           minLength: {
             value: 8,
-            message: "Password must be at least 8 characters long",
+            message: 'Password must be at least 8 characters long',
           },
         })}
         endContent={<IoLockClosed />}
@@ -103,10 +121,10 @@ const CreateAccountForm = (props: Props) => {
         labelPlacement="outside"
         description="At least 8 characters"
         variant="faded"
-        {...register("confirmPassword", {
-          required: "Please confirm your password",
+        {...register('confirmPassword', {
+          required: 'Please confirm your password',
           validate: (value) =>
-            value === getValues("password") || "Passwords do not match",
+            value === getValues('password') || 'Passwords do not match',
         })}
         endContent={<IoLockClosed />}
       />
@@ -126,6 +144,7 @@ const CreateAccountForm = (props: Props) => {
         Create Account
       </Button>
     </form>
+        </>
   );
 };
 

@@ -38,7 +38,7 @@ const Preview = ({ userId }: Props) => {
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
-      <Header userId = {user?.$id} />
+      <Header  />
 
       <main className="z-10 mx-auto mt-10 flex flex-col items-center overflow-y-auto py-3 sm:mt-36 sm:h-[560px] sm:w-[350px] sm:rounded-xl sm:bg-white sm:shadow-sm">
         <div className="mb-14 flex flex-col items-center gap-y-6">
@@ -50,7 +50,7 @@ const Preview = ({ userId }: Props) => {
             src={data?.href}
           />
           <p className="text-3xl font-bold capitalize">{`${links?.documents[0].userName}'s profile`}</p>
-          <span className="text-grey">{user?.email}</span>
+          <span className="text-grey">{links?.documents[links.documents.length -1].userEmail}</span>
         </div>
         <div className="flex flex-col gap-y-5">
           {links?.documents?.map((link) => (
