@@ -1,9 +1,15 @@
+"use client"
 import React from "react";
 import UploadFile from "./UploadFile";
 import { Button, Input } from "@nextui-org/react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store/store";
 
 type Props = {};
-function page({}: Props) {
+function Page({}: Props) {
+  const { user, profilePicture } = useSelector(
+    (state: RootState) => state.auth,
+  );
   return (
     <div className="flex flex-col gap-y-5 p-4">
       <header className="mx-auto w-[295px] space-y-1 md:w-[640px]">
@@ -24,23 +30,27 @@ function page({}: Props) {
       >
         <Input
           isRequired
+          isDisabled
           type="text"
+          defaultValue={user.name}
           label="Username"
           placeholder="e.g. Omotola"
-        />
+          />
         <Input
           isRequired
+          isDisabled
           type="email"
+          defaultValue={user.email}
           label="Email"
           placeholder="e.g adisa@example.com"
         />
       </form>
 
-      <Button color="primary" variant="shadow" className="mx-auto w-[295px]">
+      <Button isDisabled color="primary" variant="shadow" className="mx-auto w-[295px]">
         Save
       </Button>
     </div>
   );
 }
 
-export default page;
+export default Page;

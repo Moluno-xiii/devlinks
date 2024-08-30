@@ -16,26 +16,20 @@ const Verification = (props: Props) => {
   const { user } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    if (user && user.emailVerification) {
+    if (user) {
+    // if (user && user.emailVerification) {
       router.push("/homepage");
     }
     if (userId && secret) {
       updateVerification(userId as string, secret as string)
         .then(() => {
           setStatus("Verification successful. Redirecting to login...");
-          console.log("login successful");
-          console.log(secret);
-          console.log(userId);
-          router.push("/login");
+          router.push("/");
         })
         .catch((error) => {
-          console.log("Verification failed", error);
           setStatus(
             "Verification failed. Please try again or contact support.",
           );
-          console.log(secret);
-          console.log(userId);
-          console.log(error.message)
           throw error;
         });
     } else {

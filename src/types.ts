@@ -24,6 +24,7 @@ interface LinkItem {
 interface CreateLink {
   userId: string;
   userName : string;
+  userEmail : string;
   link: string;
   platform: string;
 }

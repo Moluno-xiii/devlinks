@@ -1,25 +1,26 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { IoLockClosed, IoMail } from "react-icons/io5";
-import { Button, Input } from "@nextui-org/react";
-import { useForm } from "react-hook-form";
-import FormValidationError from "@/components/UI/FormValidationError";
-import { fetchCurrentUser, login } from "./store/authSlice/authThunks";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./store/store";
-import { useDispatch } from "react-redux";
-import { Login } from "@/types";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { IoLockClosed, IoMail } from 'react-icons/io5';
+import { Button, Input } from '@nextui-org/react';
+import { useForm } from 'react-hook-form';
+import FormValidationError from '@/components/UI/FormValidationError';
+import { fetchCurrentUser, login } from './store/authSlice/authThunks';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { AppDispatch, RootState } from './store/store';
+import { useDispatch } from 'react-redux';
+import { Login } from '@/types';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { setUser } from './store/authSlice/authSlice';
 
 type Props = {};
 const LoginForm = (props: Props) => {
   const [isUserFetched, setIsUserFetched] = useState(false);
   const router = useRouter();
   const { user, loading, errorMessage } = useSelector(
-    (state: RootState) => state.auth,
+    (state: RootState) => state.auth
   );
   const dispatch = useDispatch<AppDispatch>();
 
@@ -32,16 +33,19 @@ const LoginForm = (props: Props) => {
   const onSubmit = (data: Login) => {
     const { email, password } = data;
     dispatch(login({ email, password }));
-    console.log(data);
   };
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        await dispatch(fetchCurrentUser()).unwrap();
+        const stored_user = localStorage.getItem('user');
+        if (stored_user) {
+          const parsedUser = JSON.parse(stored_user);
+          dispatch(setUser(parsedUser));
+        }
         setIsUserFetched(true);
       } catch (error) {
-        toast.error("An error occurred while fetching the user data.");
+        toast.error('An error occurred while fetching the user data.');
       }
     };
 
@@ -50,15 +54,18 @@ const LoginForm = (props: Props) => {
 
   useEffect(() => {
     if (!isUserFetched || loading) return;
-
-    if (user && user.emailVerification === true) {
-      setTimeout(() => {
-        router.push("/homepage");
-      }, 3000);
-      toast.success("Login successful");
-      console.log(user);
-    } else {
-      toast.error("Login failed, check your internet connection");
+    try {
+      if (user ) {
+      // if (user && user.emailVerification === true) {
+        setTimeout(() => {
+          router.push('/homepage');
+        }, 3000);
+        toast.success('Login successful');
+      } else {
+        toast.error('No active session');
+      }
+    } catch (error: any) {
+      toast.error(error.message);
     }
   }, [isUserFetched, user, loading, router]);
 
@@ -82,11 +89,11 @@ const LoginForm = (props: Props) => {
           description="e.g adekola@gmail.com"
           variant="faded"
           endContent={<IoMail />}
-          {...register("email", {
-            required: "Email is required",
+          {...register('email', {
+            required: 'Email is required',
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address",
+              message: 'Invalid email address',
             },
           })}
         />
@@ -102,11 +109,11 @@ const LoginForm = (props: Props) => {
           labelPlacement="outside"
           isRequired
           endContent={<IoLockClosed />}
-          {...register("password", {
-            required: "Password is required",
+          {...register('password', {
+            required: 'Password is required',
             minLength: {
               value: 8,
-              message: "Password must be at least 8 characters long",
+              message: 'Password must be at least 8 characters long',
             },
           })}
         />
@@ -127,7 +134,7 @@ const LoginForm = (props: Props) => {
         </Button>
         <Link
           aria-labelledby="password reset link"
-          href="password-reset"
+          href="forgot-password"
           className="place-self-end text-xs text-error"
         >
           Forgot Password ?

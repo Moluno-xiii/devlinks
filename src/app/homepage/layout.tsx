@@ -1,46 +1,45 @@
-"use client";
-import { useRouter } from "next/navigation";
-import Header from "../../components/UI/Header";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../store/store";
-import { fetchCurrentUser } from "../store/authSlice/authThunks";
-import { useSelector } from "react-redux";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+'use client';
+
+import { useRouter } from 'next/navigation';
+import Header from '../../components/UI/Header';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../store/store';
+import { fetchCurrentUser } from '../store/authSlice/authThunks';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from '@/components/UI/Loader';
 
 const queryClient = new QueryClient();
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const { user, loading, errorMessage } = useSelector(
-    (state: RootState) => state.auth,
-  );
-
-  useEffect(
-    function () {
-      if (user !== null || user !== undefined) return;
-      dispatch(fetchCurrentUser());
-    },
-    [dispatch, user],
-  );
+  const { user, loading, errorMessage } = useSelector((state: RootState) => state.auth);
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
 
   useEffect(() => {
-    if (loading) return;
-    if (!user || user.emailVerification !== true) {
-      setTimeout(() => {
-        router.push("/");
-      }, 3000);
-      toast.error("Session expired");
-    }
-  }, [user, router, loading]);
+    const checkUserAuthentication = async () => {
+      if (!user) {
+        await dispatch(fetchCurrentUser());
+      }
+      setIsAuthChecked(true);
+    };
 
-  if (loading) return <p>loading...</p>;
+    checkUserAuthentication();
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    if (isAuthChecked && !user) {
+      toast.error('Please log in to access this page.');
+      router.push('/');
+    }
+  }, [isAuthChecked, user, router]);
+
+  if (loading || !isAuthChecked) return <Loader />;
+
   return (
     <QueryClientProvider client={queryClient}>
       <div>

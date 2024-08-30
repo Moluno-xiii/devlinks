@@ -38,8 +38,8 @@ export const authSlice = createSlice({
       state.user = action.payload;
       state.loading = false;
     },
-    isLoading(state) {
-      state.loading = true;
+    setLoading(state, action) {
+      state.loading = action.payload;
       state.errorMessage = "";
     },
     setProfilePicture(state, action) {
@@ -66,6 +66,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { isLoading, login, logout, setUser, setError, setProfilePicture } =
+export const { setLoading, login, logout, setUser, setError, setProfilePicture } =
   authSlice.actions;
 export default authSlice.reducer;

@@ -2,19 +2,20 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { toast, ToastContainer } from "react-toastify";
+import { RootState } from "../store/store";
+import { useSelector } from "react-redux";
 
 type Props = {
-  userId: string;
 };
 
-const Header = ({ userId }: Props) => {
-  const shareUrl = `localhost:3000/${userId}`;
+const Header = ({ }: Props) => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const shareUrl = `https://devlinks-kappa.vercel.app/${user?.$id}`;
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
       toast.info("Link copied to clipboard");
     } catch (err) {
-      console.error("Failed to copy text: ", err);
     }
   };
 
@@ -26,12 +27,9 @@ const Header = ({ userId }: Props) => {
           text: "Here's a link to my website:",
           url: shareUrl,
         });
-        console.log("Successfully shared");
       } catch (error) {
-        console.error("Error sharing:", error);
       }
     } else {
-      console.log("clipboard");
       copyToClipboard();
     }
   };
@@ -51,7 +49,7 @@ const Header = ({ userId }: Props) => {
           Share Link
         </Button>
       </header>
-    z</>
+    </>
   );
 };
 

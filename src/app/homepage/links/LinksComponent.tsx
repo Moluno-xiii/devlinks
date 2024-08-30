@@ -1,19 +1,30 @@
-"use client";
-import React, { useState } from "react";
-import { IoMdAdd } from "react-icons/io";
-import { Button } from "@nextui-org/react";
-import AddLink from "./AddLink";
-import UserLinks from "./UserLinks";
+'use client';
+import React, { useState } from 'react';
+import { IoMdAdd } from 'react-icons/io';
+import { Button } from '@nextui-org/react';
+import AddLink from './AddLink';
+import UserLinks from './UserLinks';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store/store';
+import { checkEmailVerification, verifyUserAccount } from '@/app/store/authSlice/authServices';
+import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '@/app/store/authSlice/authSlice';
+import { getLinks } from '@/utils/links_utils/link_functions';
 
 type Props = {};
 
 const LinksComponent = (props: Props) => {
   const [showAddLink, setShowAddLink] = useState(false);
+  const { user, loading } = useSelector((state: RootState) => state.auth);
+  const { links } = useSelector((state: RootState) => state.link);
+  const dispatch = useDispatch();
   function closeAddLinkSection() {
     setShowAddLink(false);
   }
   return (
     <div className="flex items-center justify-center">
+      <ToastContainer />
       <main className="flex w-[343px] flex-col items-center justify-center rounded-xl bg-white p-6 md:w-[721px]">
         <section className="flex flex-col gap-y-2 md:w-full">
           <p className="text-2xl font-bold md:text-3xl">Customize your links</p>
@@ -25,6 +36,7 @@ const LinksComponent = (props: Props) => {
         </section>
         <Button
           variant="solid"
+          // isDisabled={!user.emailVerification}
           color="primary"
           className="w-[295px] md:w-full"
           startContent={<IoMdAdd />}
