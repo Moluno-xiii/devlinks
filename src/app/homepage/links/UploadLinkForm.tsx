@@ -117,10 +117,7 @@ const UploadLinkForm = ({ onCloseAddLink }: Props) => {
       })
       .catch((error: any) => {
         toast.error(error.message);
-        console.error("Error updating link:", error);
       });
-    console.log(data);
-    console.log("form submitted");
   };
 
   return <LinkForm onSubmit={onSubmit} />;

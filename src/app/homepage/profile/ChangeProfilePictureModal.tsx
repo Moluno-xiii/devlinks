@@ -36,7 +36,6 @@ const ChangeProfilePictureModal = ({ isOpen, onOpen, onOpenChange }: Props) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const { fileList, setFileList, isLoading, error } = UseFetchProfilePicture();
-  console.log(fileList);
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj as FileType);
@@ -64,10 +63,7 @@ const ChangeProfilePictureModal = ({ isOpen, onOpen, onOpenChange }: Props) => {
         },
       ]);
       toast.success('Profile picture uploaded successfully');
-      console.log('trying to upload file');
     } catch (error) {
-      console.log('an error occurred');
-      console.error('Upload failed:', error);
     }
   };
   return (

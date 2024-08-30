@@ -32,7 +32,6 @@ const CreateAccountForm = (props: Props) => {
 
   const onSubmit = async (data: CreateAccountFormData) => {
     const { email, password, name } = data;
-    console.log(data);
     try {
       await createUserAccount({email, password, name}, dispatch)
       toast.success("Account created successfully")

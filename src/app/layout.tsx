@@ -3,6 +3,7 @@ import { Inter, Instrument_Sans, Roboto } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { ClientProvider } from "./store/StoreProvider";
+import Footer from "@/components/UI/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 const instrument_sans = Instrument_Sans({
@@ -27,6 +28,7 @@ export default function RootLayout({
       >
         <ClientProvider>
           <Providers>{children}</Providers>
+          <Footer />
         </ClientProvider>
       </body>
     </html>

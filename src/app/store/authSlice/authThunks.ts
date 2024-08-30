@@ -13,10 +13,8 @@ const login = createAsyncThunk(
       const currentUser = await account.get();
       localStorage.setItem('user', JSON.stringify(currentUser));
       dispatch(setUser(currentUser));
-      console.log(data);
       return data;
     } catch (error: any) {
-      console.log(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -30,7 +28,6 @@ const logout = createAsyncThunk(
       localStorage.removeItem('user');
       dispatch(setUser(null));
     } catch (error: any) {
-      console.log(error.message);
       return rejectWithValue(error.message);
     }
   }

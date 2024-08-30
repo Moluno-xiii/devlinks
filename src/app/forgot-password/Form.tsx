@@ -26,12 +26,10 @@ const Form = (props: Props) => {
 
     try {
       await passwordRecovery(userEmail);
-      console.log(data);
       setTimeout(() => {
         router.push('/');
       }, 3000);
     } catch (error) {
-      console.error('Failed to recover password:', error);
     }
   };
   return (

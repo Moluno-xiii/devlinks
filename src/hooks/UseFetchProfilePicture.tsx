@@ -21,8 +21,6 @@ const useFetchProfilePicture = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data)
-      console.log(user)
       dispatch(setProfilePicture(data.href));
       setFileList([
         {

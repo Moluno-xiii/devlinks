@@ -41,7 +41,6 @@ const UploadFile: React.FC = () => {
 
   const handleUpload = async () => {
     if (fileList.length === 0) {
-      console.log("no fileList");
       return;
     }
     const file = fileList[0].originFileObj as RcFile;
@@ -49,13 +48,9 @@ const UploadFile: React.FC = () => {
       try {
         await uploadAvatar(file, user.$id);
         toast.success("Profile picture uploaded successfully");
-        console.log("trying to upload file");
       } catch (error) {
-        console.log("an error occurred");
-        console.error("Upload failed:", error);
       }
     } else {
-      console.log("no file");
     }
   };
 

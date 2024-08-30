@@ -34,7 +34,7 @@ const Preview = ({ userId }: Props) => {
       <div className="text-error">
         {error ? error.message : linkErrorMessage?.message}
       </div>
-    );
+    )
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
@@ -64,7 +64,7 @@ const Preview = ({ userId }: Props) => {
       </main>
       <div className="file absolute left-0 right-0 top-0 hidden h-[357px] rounded-b-[32px] bg-primary sm:block"></div>
     </div>
-  );
+  )
 };
 
-export default Preview;
+export default Preview

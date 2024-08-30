@@ -10,13 +10,12 @@ type Props = {
 
 const Header = ({ }: Props) => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const shareUrl = `localhost:3000/${user?.$id}`;
+  const shareUrl = `https://devlinks-kappa.vercel.app/${user?.$id}`;
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
       toast.info("Link copied to clipboard");
     } catch (err) {
-      console.error("Failed to copy text: ", err);
     }
   };
 
@@ -28,12 +27,9 @@ const Header = ({ }: Props) => {
           text: "Here's a link to my website:",
           url: shareUrl,
         });
-        console.log("Successfully shared");
       } catch (error) {
-        console.error("Error sharing:", error);
       }
     } else {
-      console.log("clipboard");
       copyToClipboard();
     }
   };
@@ -53,7 +49,7 @@ const Header = ({ }: Props) => {
           Share Link
         </Button>
       </header>
-    z</>
+    </>
   );
 };
 

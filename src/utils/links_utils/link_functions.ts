@@ -18,11 +18,8 @@ async function uploadLink(data: CreateLink, func: () => void) {
     toast.success("Link uploaded successfully");
     func();
 
-    console.log(data);
   } catch (error: any) {
     toast.error("An error occured");
-    console.log("an error occured");
-    console.error("error happened :", error.message);
   }finally {
     store.dispatch(setLoadingState(false))
   }
@@ -36,11 +33,8 @@ async function getLinks(userId : string) {
       collection_id as string,
       [Query.equal("userId", userId)],
     );
-    console.log(result);
     return result;
   } catch (error: any) {
-    console.error("An error occured, :", error);
-    console.log(error.message);
   }
 }
 
@@ -53,11 +47,8 @@ const fetchLinks = createAsyncThunk(
         collection_id as string,
         [Query.equal("userId", userId)],
       );
-      console.log(result);
       return result;
     } catch (error: any) {
-      console.error("An error occured, :", error);
-      console.log(error.message);
       return rejectWithValue(error.message);
     }
   },
@@ -72,13 +63,10 @@ async function patchLink(document_id: string, data: EditLink ) {
       document_id,
       data,
     );
-    console.log(result);
     toast.success("Link edited successfully");
     return result;
   } catch (error: any) {
     toast.error(error.message);
-    console.error("An error occured, :", error);
-    console.log(error.message);
   } finally {
     store.dispatch(setLoadingState(false))
   }
@@ -91,13 +79,10 @@ async function deleteLink(document_id: string) {
       collection_id as string,
       document_id,
     );
-    console.log(result);
     toast("Link deleted successfully");
     return result;
   } catch (error: any) {
     toast.error(error.message);
-    console.error("An error occured, :", error);
-    console.log(error.message);
   } finally {
     store.dispatch(setLoadingState(false))
   }

@@ -31,15 +31,12 @@ const ResetForm = (props: Props) => {
     const { confirmPassword } = data;
     try {
       await updateRecovery(confirmPassword, userId, secret);
-      console.log(data);
       setTimeout(() => {
         router.push('/');
       }, 3000);
     } catch (error) {
-      console.error('Failed to update password:', error);
     }
 
-    console.log(data);
   };
   return (
     <form
