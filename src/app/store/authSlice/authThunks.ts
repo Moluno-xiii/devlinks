@@ -3,20 +3,6 @@ import { logoutUser } from './authServices';
 import { setLoading, setUser } from './authSlice';
 import { toast } from 'react-toastify';
 
-const logout = createAsyncThunk(
-  'auth/logout',
-  async (_, { dispatch, rejectWithValue }) => {
-    try {
-      await logoutUser();
-      localStorage.removeItem('user');
-      
-      dispatch(setUser(null));
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
 const fetchCurrentUser = createAsyncThunk(
   'auth/fetchCurrentUser',
   async (_, { dispatch, rejectWithValue }) => {
@@ -40,4 +26,4 @@ const fetchCurrentUser = createAsyncThunk(
   }
 );
 
-export { fetchCurrentUser, logout };
+export { fetchCurrentUser };

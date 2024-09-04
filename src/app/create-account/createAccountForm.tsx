@@ -4,14 +4,11 @@ import { IoLockClosed, IoMail } from 'react-icons/io5';
 import { Button, Input } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 import FormValidationError from '@/components/UI/FormValidationError';
-// import { createUserAccount } from "../../../appwrite";
-
 import { FaUserAlt } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../store/store';
 import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { createUserAccount } from '../store/authSlice/authServices';
+import { useMutation } from '@tanstack/react-query';
 type Props = {};
 
 interface CreateAccountFormData {
@@ -27,20 +24,21 @@ const CreateAccountForm = (props: Props) => {
     getValues,
     formState: { errors },
   } = useForm<CreateAccountFormData>();
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter()
-
-  const onSubmit = async (data: CreateAccountFormData) => {
-    const { email, password, name } = data;
-    try {
-      await createUserAccount({email, password, name}, dispatch)
+  const {mutate, isPending} = useMutation({
+    mutationFn : createUserAccount,
+    onSuccess : () => {
       toast.success("Account created successfully")
       setTimeout(() => {
         router.push("/")
       }, 3000);
-    } catch (error: any) {
-      toast.error(error.message);
-    }
+    },
+    onError : (err) => toast.error(err.message)
+  })
+
+  const onSubmit = async (data: CreateAccountFormData) => {
+    const { email, password, name } = data;
+    mutate({email, password, name})
   };
   return (
     <>
@@ -80,6 +78,7 @@ const CreateAccountForm = (props: Props) => {
         labelPlacement="outside"
         description="At least 3 characters"
         isRequired
+        disabled={isPending}
         {...register('name', {
           required: 'Enter a valid username',
           pattern: {
@@ -97,6 +96,7 @@ const CreateAccountForm = (props: Props) => {
         type="password"
         label="Create Password"
         isRequired
+        disabled={isPending}
         labelPlacement="outside"
         description="At least 8 characters"
         variant="faded"
@@ -117,6 +117,7 @@ const CreateAccountForm = (props: Props) => {
         type="password"
         label="Confirm Password"
         isRequired
+        disabled={isPending}
         labelPlacement="outside"
         description="At least 8 characters"
         variant="faded"
@@ -137,6 +138,7 @@ const CreateAccountForm = (props: Props) => {
         aria-labelledby="create account submit button"
         variant="solid"
         color="primary"
+        isLoading={isPending}
         type="submit"
         className="mt-4 w-full text-base font-semibold"
       >

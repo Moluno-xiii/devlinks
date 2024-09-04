@@ -4,13 +4,15 @@ import { toast } from 'react-toastify';
 import { CreateAccount, Login, UpdateVerification } from '@/types';
 
 const logoutUser = async () => {
-  return await account.deleteSession('current');
+  try {
+    await account.deleteSession('current');
+    localStorage.removeItem('user');
+  } catch (error: any) {
+    throw new Error(error.message)
+  }
 };
 
-async function createUserAccount(
-  { email, password, name }: CreateAccount,
-  dispatch: (action: any) => void
-) {
+async function createUserAccount({ email, password, name }: CreateAccount) {
   try {
     const userAccount = await account.create(
       ID.unique(),
@@ -19,8 +21,7 @@ async function createUserAccount(
       name
     );
   } catch (error: any) {
-    toast.error('Failed to create account: ' + error.message);
-    throw error;
+    throw new Error(error.message);
   }
 }
 
@@ -148,5 +149,5 @@ export {
   passwordRecovery,
   updateRecovery,
   createUserAccount,
-  loginUser
+  loginUser,
 };

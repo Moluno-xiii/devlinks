@@ -8,7 +8,7 @@ import Loader from "@/components/UI/Loader";
 type Props = {};
 
 const UserLinks = (props: Props) => {
-  const { user, loading, errorMessage } = useSelector(
+  const { user } = useSelector(
     (state: RootState) => state.auth
   );
   const { data, isLoading, error } = useLinksQuery(user.$id);
