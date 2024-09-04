@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { login as loginUser } from "./authThunks";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface InitialStateProps {
   loading: boolean;
@@ -11,14 +10,14 @@ interface InitialStateProps {
 
 const initialState: InitialStateProps = {
   loading: false,
-  errorMessage: "",
+  errorMessage: '',
   isAuthenticated: false,
-  profilePicture: "",
+  profilePicture: '',
   user: null,
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     login(state, action) {
@@ -40,32 +39,24 @@ export const authSlice = createSlice({
     },
     setLoading(state, action) {
       state.loading = action.payload;
-      state.errorMessage = "";
+      state.errorMessage = '';
     },
     setProfilePicture(state, action) {
       state.profilePicture = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginUser.pending, (state) => {
-        state.loading = true;
-        state.errorMessage = "";
-      })
-      .addCase(loginUser.fulfilled, (state) => {
-        state.loading = false;
-        state.isAuthenticated = true;
-        state.errorMessage = "";
-      })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.loading = false;
-        state.isAuthenticated = false;
-        state.user = null;
-        state.errorMessage = action.payload as string;
-      });
+    setAuthenticated(state, action) {
+      state.isAuthenticated = action.payload;
+    },
   },
 });
 
-export const { setLoading, login, logout, setUser, setError, setProfilePicture } =
-  authSlice.actions;
+export const {
+  setLoading,
+  login,
+  logout,
+  setUser,
+  setError,
+  setProfilePicture,
+  setAuthenticated
+} = authSlice.actions;
 export default authSlice.reducer;

@@ -8,9 +8,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import { deleteLink } from "@/utils/links_utils/link_functions";
-import { InvalidateQueryFilters, useQueryClient } from "@tanstack/react-query";
-import { RootState } from "@/app/store/store";
-import { useSelector } from "react-redux";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 type Props = {
   isOpen: boolean;
@@ -24,23 +22,19 @@ type Props = {
 const DeleteLinkModal = ({
   isOpen,
   id,
-  onOpen,
   onOpenChange,
 }: Props) => {
-  const { user } = useSelector((state: RootState) => state.auth);
-  const { loading } = useSelector((state: RootState) => state.link);
   const queryClient = useQueryClient();
-  const onDeleteLink = () => {
-    deleteLink(id).then(() => {
-        queryClient.invalidateQueries([
-          "fetchLinks",
-          user.$id,
-        ] as InvalidateQueryFilters);
+  const {mutate, isPending} = useMutation({
+    mutationFn : deleteLink,
+    onSuccess : () => {
+      toast.success("Link deleted successfully")
+      queryClient.invalidateQueries({
+        queryKey : ["fetchLinks"]
       })
-      .catch((error: any) => {
-        toast.error(error.message);
-      });
-  }
+    },
+    onError : (err) => toast.error(err.message)
+  })
 
   return (
     <div>
@@ -58,7 +52,7 @@ const DeleteLinkModal = ({
                 <Button color="danger" variant="light" onPress={onClose}>
                   No
                 </Button>
-                <Button isLoading={loading} color="primary" onClick={onDeleteLink}>
+                <Button isLoading={isPending} color="primary" onClick={() => mutate(id)}>
                   Yes
                 </Button>
               </ModalFooter>

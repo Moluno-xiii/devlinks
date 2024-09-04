@@ -1,34 +1,34 @@
 import { ID } from 'appwrite';
-import {
-  account,
-  bucket_id,
-  storage,
-} from '../../../../appwrite';
+import { account, bucket_id, storage } from '../../../../appwrite';
 import { toast } from 'react-toastify';
-import { CreateAccount, UpdateVerification } from '@/types';
-import { setUser } from './authSlice';
-
+import { CreateAccount, Login, UpdateVerification } from '@/types';
 
 const logoutUser = async () => {
   return await account.deleteSession('current');
 };
 
-
-async function createUserAccount({ email, password, name }: CreateAccount, dispatch : (action : any) => void) {
+async function createUserAccount(
+  { email, password, name }: CreateAccount,
+  dispatch: (action: any) => void
+) {
   try {
-    const userAccount = await account.create(ID.unique(), email, password, name);
+    const userAccount = await account.create(
+      ID.unique(),
+      email,
+      password,
+      name
+    );
   } catch (error: any) {
-    toast.error("Failed to create account: " + error.message);
+    toast.error('Failed to create account: ' + error.message);
     throw error;
   }
 }
 
-
 async function verifyUserAccount() {
   try {
-    const session = account.get()
+    const session = account.get();
     const verificationData = await account.createVerification(
-      "http://localhost:3000/verify",
+      'http://localhost:3000/verify'
     );
   } catch (error: any) {
     throw error;
@@ -47,9 +47,9 @@ async function updateVerification({ userId, secret }: UpdateVerification) {
 async function getAvatar(file_id: string) {
   try {
     const result = await storage.getFileDownload(bucket_id as string, file_id);
-    
+
     const response = await fetch(result.href, { method: 'HEAD' });
-    
+
     if (response.ok) {
       return result;
     } else {
@@ -63,8 +63,7 @@ async function getAvatar(file_id: string) {
 const fetchImage = async (fileId: string) => {
   try {
     const url = storage.getFileView(bucket_id as string, fileId);
-  } catch (error) {
-  }
+  } catch (error) {}
 };
 
 async function uploadAvatar(imageFile: File, file_id: string) {
@@ -103,7 +102,6 @@ async function deleteAvatar(file_id: string) {
   }
 }
 
-
 async function passwordRecovery(email: string) {
   try {
     await account.createRecovery(email, 'http://localhost:3000/password-reset');
@@ -126,6 +124,17 @@ async function updateRecovery(
   }
 }
 
+const loginUser = async ({ email, password }: Login) => {
+  try {
+    await account.createEmailPasswordSession(email, password);
+    const currentUser = await account.get();
+    localStorage.setItem('user', JSON.stringify(currentUser));
+    return currentUser;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
 export {
   logoutUser,
   updateVerification,
@@ -138,5 +147,6 @@ export {
   deleteAvatar,
   passwordRecovery,
   updateRecovery,
-  createUserAccount
+  createUserAccount,
+  loginUser
 };

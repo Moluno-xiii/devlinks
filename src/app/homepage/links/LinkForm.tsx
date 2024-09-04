@@ -14,18 +14,16 @@ type Props = {
   defaultLinkValue?: string;
   defaultPlatformValue?: any;
   onClose?: () => void;
+  loading? : boolean
 };
 const LinkForm = ({
   onSubmit,
   defaultLinkValue,
   defaultPlatformValue,
   onClose,
+  loading
 }: Props) => {
-  const { user, loading } = useSelector((state: RootState) => state.auth);
-  const { loading: loadingLinks, errorMessage } = useSelector(
-    (state: RootState) => state.link,
-  );
-
+  const { user } = useSelector((state: RootState) => state.auth);
   const {
     control,
     register,
@@ -96,7 +94,7 @@ const LinkForm = ({
       <Button
         type="submit"
         onPress={onClose}
-        isLoading={loadingLinks}
+        isLoading={loading}
         color="primary"
         variant="solid"
       >

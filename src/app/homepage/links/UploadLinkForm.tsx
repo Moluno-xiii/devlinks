@@ -1,4 +1,3 @@
-import { RootState } from "@/app/store/store";
 import { CreateLink, LinkItem } from "@/types";
 import { uploadLink } from "@/utils/links_utils/link_functions";
 import React from "react";
@@ -19,9 +18,8 @@ import { FaXTwitter } from "react-icons/fa6";
 import { SiCodewars, SiFrontendmentor, SiHashnode, SiLeetcode, SiWakatime } from "react-icons/si";
 import { TbWorldWww } from "react-icons/tb";
 import LinkForm from "./LinkForm";
-import { InvalidateQueryFilters, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
 
 export const _links: LinkItem[] = [
   {
@@ -105,22 +103,25 @@ type Props = {
 export const sortedLinks = _links.sort((a, b) => a.key.localeCompare(b.key));
 
 const UploadLinkForm = ({ onCloseAddLink }: Props) => {
-  const { user } = useSelector((state: RootState) => state.auth);
   const queryClient = useQueryClient();
-  const onSubmit = (data: CreateLink) => {
-    uploadLink(data, onCloseAddLink)
-      .then(() => {
-        queryClient.invalidateQueries([
-          "fetchLinks",
-          user.$id,
-        ] as InvalidateQueryFilters);
+  const {isPending, mutate} = useMutation({
+    mutationFn : uploadLink,
+    onSuccess : () => {
+      queryClient.invalidateQueries({
+        queryKey : ["fetchLinks"]
       })
-      .catch((error: any) => {
-        toast.error(error.message);
-      });
+      toast.success("Link added successfully")
+    },
+    onError : (err) => toast.error(err.message)
+  })
+  
+  const onSubmit = (data: CreateLink) => {
+    mutate(data, {
+      onSuccess : onCloseAddLink
+    })
   };
 
-  return <LinkForm onSubmit={onSubmit} />;
+  return <LinkForm onSubmit={onSubmit} loading={isPending} />;
 };
 
 export default UploadLinkForm;
