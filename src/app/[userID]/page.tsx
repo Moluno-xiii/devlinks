@@ -4,7 +4,13 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UserLinksPage from "./UserLinksPage";
 import Header from "./Header";
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions : {
+    queries : {
+      staleTime : 0
+    }
+  }
+});
 
 type Props = {};
 

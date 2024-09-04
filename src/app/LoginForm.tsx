@@ -4,7 +4,6 @@ import { IoLockClosed, IoMail } from 'react-icons/io5';
 import { Button, Input } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 import FormValidationError from '@/components/UI/FormValidationError';
-import { fetchCurrentUser, login } from './store/authSlice/authThunks';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
@@ -13,7 +12,9 @@ import { useDispatch } from 'react-redux';
 import { Login } from '@/types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setUser } from './store/authSlice/authSlice';
+import { setAuthenticated, setUser } from './store/authSlice/authSlice';
+import { useMutation } from '@tanstack/react-query';
+import { loginUser } from './store/authSlice/authServices';
 
 type Props = {};
 const LoginForm = (props: Props) => {
@@ -23,6 +24,14 @@ const LoginForm = (props: Props) => {
     (state: RootState) => state.auth
   );
   const dispatch = useDispatch<AppDispatch>();
+  const {mutate, isPending} = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      dispatch(setUser(data));
+      dispatch(setAuthenticated(true))
+    },
+    onError: (err) => toast.error(err.message)
+  });
 
   const {
     register,
@@ -32,7 +41,7 @@ const LoginForm = (props: Props) => {
 
   const onSubmit = (data: Login) => {
     const { email, password } = data;
-    dispatch(login({ email, password }));
+    mutate({email, password})
   };
 
   useEffect(() => {
@@ -55,8 +64,8 @@ const LoginForm = (props: Props) => {
   useEffect(() => {
     if (!isUserFetched || loading) return;
     try {
-      if (user ) {
-      // if (user && user.emailVerification === true) {
+      if (user) {
+        // if (user && user.emailVerification === true) {
         setTimeout(() => {
           router.push('/homepage');
         }, 3000);
@@ -83,7 +92,7 @@ const LoginForm = (props: Props) => {
           aria-labelledby="email input"
           type="email"
           label="Email"
-          disabled={loading}
+          disabled={isPending}
           isRequired
           labelPlacement="outside"
           description="e.g adekola@gmail.com"
@@ -105,7 +114,7 @@ const LoginForm = (props: Props) => {
           variant="faded"
           label="Password"
           type="password"
-          disabled={loading}
+          disabled={isPending}
           labelPlacement="outside"
           isRequired
           endContent={<IoLockClosed />}
@@ -124,7 +133,7 @@ const LoginForm = (props: Props) => {
         )}
         <Button
           variant="solid"
-          isLoading={loading}
+          isLoading={isPending}
           color="primary"
           type="submit"
           className="mt-4 w-full text-base font-semibold"

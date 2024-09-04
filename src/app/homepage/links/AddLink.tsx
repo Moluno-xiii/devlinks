@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import UploadLinkForm from "./UploadLinkForm";
 import { RootState } from "@/app/store/store";
@@ -10,9 +10,7 @@ type Props = {
 };
 
 const AddLink = ({closeAddLinkSection}: Props) => {
-  const [link, setLink] = useState<any>(null)
-  const [activeLink, setActiveLink] = useState<string>('')
-  const { links, loading, errorMessage } = useSelector(
+  const { links } = useSelector(
     (state: RootState) => state.link,
   );
 

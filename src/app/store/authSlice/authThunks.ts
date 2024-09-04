@@ -1,38 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { logoutUser } from './authServices';
-import { CreateAccount, Login } from '@/types';
-import { account } from '../../../../appwrite';
 import { setLoading, setUser } from './authSlice';
 import { toast } from 'react-toastify';
-
-const login = createAsyncThunk(
-  'auth/login',
-  async ({ email, password }: Login, { dispatch, rejectWithValue }) => {
-    try {
-      const data = await account.createEmailPasswordSession(email, password);
-      const currentUser = await account.get();
-      localStorage.setItem('user', JSON.stringify(currentUser));
-      dispatch(setUser(currentUser));
-      return data;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-const logout = createAsyncThunk(
-  'auth/logout',
-  async (_, { dispatch, rejectWithValue }) => {
-    try {
-      await logoutUser();
-      localStorage.removeItem('user');
-      
-      dispatch(setUser(null));
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
 
 const fetchCurrentUser = createAsyncThunk(
   'auth/fetchCurrentUser',
@@ -57,4 +26,4 @@ const fetchCurrentUser = createAsyncThunk(
   }
 );
 
-export { login, fetchCurrentUser, logout };
+export { fetchCurrentUser };

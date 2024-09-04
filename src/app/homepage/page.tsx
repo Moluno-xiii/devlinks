@@ -4,6 +4,8 @@ import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { useLinksQuery } from "@/hooks/useLinksQuery";
+import Loader from "@/components/UI/Loader";
 
 const HomePage: React.FC = () => {
   const handleOpenLinks = () => {
@@ -12,6 +14,8 @@ const HomePage: React.FC = () => {
 
   const router = useRouter();
   const { user } = useSelector((state: RootState) => state.auth);
+  const { isLoading } = useLinksQuery(user?.$id);
+  if (isLoading) return <Loader />;
 
   return (
     <div className="flex items-center justify-center">
