@@ -15,27 +15,6 @@ client
   .setProject(process.env.NEXT_PUBLIC_APPWRITE_ID as string);
 
 
-interface CreateAccount {
-  email: string;
-  password: string;
-  name: string;
-}
-
-interface LoginAccount {
-  email: string;
-  password: string;
-}
-
-
-
-async function logoutUser() {
-  try {
-    return await account.deleteSession("current");
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
 async function verifyUserAccount() {
   try {
     const verificationData = await account.createVerification(

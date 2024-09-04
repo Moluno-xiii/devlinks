@@ -6,7 +6,6 @@ import {
 } from '../../../../appwrite';
 import { toast } from 'react-toastify';
 import { CreateAccount, UpdateVerification } from '@/types';
-import { setUser } from './authSlice';
 
 
 const logoutUser = async () => {

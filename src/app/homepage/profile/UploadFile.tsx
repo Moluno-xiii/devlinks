@@ -10,18 +10,15 @@ import UploadButton from "./UploadButton";
 import UseFetchProfilePicture from "@/hooks/UseFetchProfilePicture";
 import { FileType } from "@/types";
 import { getBase64 } from "@/utils/getBase64";
-import { Avatar, Button, useDisclosure } from "@nextui-org/react";
+import { Avatar, Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-import ChangeProfilePictureModal from "./ChangeProfilePictureModal";
-import { FaCamera } from "react-icons/fa";
 import Loader from "@/components/UI/Loader";
 
 const UploadFile: React.FC = () => {
   const { user, profilePicture } = useSelector(
     (state: RootState) => state.auth,
   );
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const { fileList, setFileList, isLoading, error } = UseFetchProfilePicture();
@@ -64,20 +61,6 @@ const UploadFile: React.FC = () => {
           alt="Profile Picture"
           className="h-40 w-40"
         />
-        {/* <ChangeProfilePictureModal
-          isOpen={isOpen}
-          onOpen={onOpen}
-          onOpenChange={onOpenChange}
-        /> */}
-        {/* <Button
-          isIconOnly
-          color="primary"
-          aria-label="change profile picture"
-          className="absolute -bottom-3"
-          onPress={onOpen}
-        >
-          <FaCamera />
-        </Button> */}
       </div>
     );
   }

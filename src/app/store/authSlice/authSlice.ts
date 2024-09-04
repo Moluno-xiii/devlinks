@@ -6,7 +6,7 @@ interface InitialStateProps {
   errorMessage: string;
   isAuthenticated: boolean;
   profilePicture: string;
-  user: any;
+  user: any; // remember to set user types
 }
 
 const initialState: InitialStateProps = {

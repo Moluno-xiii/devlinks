@@ -4,21 +4,12 @@ import { IoMdAdd } from 'react-icons/io';
 import { Button } from '@nextui-org/react';
 import AddLink from './AddLink';
 import UserLinks from './UserLinks';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/store/store';
-import { checkEmailVerification, verifyUserAccount } from '@/app/store/authSlice/authServices';
-import { toast, ToastContainer } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { setLoading } from '@/app/store/authSlice/authSlice';
-import { getLinks } from '@/utils/links_utils/link_functions';
+import { ToastContainer } from 'react-toastify';
 
 type Props = {};
 
 const LinksComponent = (props: Props) => {
   const [showAddLink, setShowAddLink] = useState(false);
-  const { user, loading } = useSelector((state: RootState) => state.auth);
-  const { links } = useSelector((state: RootState) => state.link);
-  const dispatch = useDispatch();
   function closeAddLinkSection() {
     setShowAddLink(false);
   }
