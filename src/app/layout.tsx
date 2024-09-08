@@ -3,7 +3,7 @@ import { Inter, Instrument_Sans, Roboto } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { ClientProvider } from "./store/StoreProvider";
-import Footer from "@/components/UI/Footer";
+import Footer from "@/_components/UI/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 const instrument_sans = Instrument_Sans({

@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Link from "./Link";
 import { useLinksQuery } from "@/hooks/useLinksQuery";
-import Loader from "@/components/UI/Loader";
+import Loader from "@/_components/UI/Loader";
 
 type Props = {};
 

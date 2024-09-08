@@ -3,7 +3,7 @@ import { Avatar } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 import { getLinks } from "@/utils/links_utils/link_functions";
-import Loader from "@/components/UI/Loader";
+import Loader from "@/_components/UI/Loader";
 import { getAvatar } from "../store/authSlice/authServices";
 import { useQuery } from "@tanstack/react-query";
 import { RootState } from "../store/store";

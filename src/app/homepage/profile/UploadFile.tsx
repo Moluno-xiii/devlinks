@@ -13,9 +13,7 @@ import { getBase64 } from "@/utils/getBase64";
 import { Avatar, Button, useDisclosure } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-import ChangeProfilePictureModal from "./ChangeProfilePictureModal";
-import { FaCamera } from "react-icons/fa";
-import Loader from "@/components/UI/Loader";
+import Loader from "@/_components/UI/Loader";
 
 const UploadFile: React.FC = () => {
   const { user, profilePicture } = useSelector(

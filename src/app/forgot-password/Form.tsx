@@ -3,10 +3,10 @@ import React from 'react';
 import { IoMail } from 'react-icons/io5';
 import { Button, Input } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
-import FormValidationError from '../../components/UI/FormValidationError';
+import FormValidationError from '../../_components/UI/FormValidationError';
 import { passwordRecovery } from '../store/authSlice/authServices';
 import { useRouter } from 'next/navigation';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 type Props = {};
 interface PasswordRecovery {
@@ -23,13 +23,13 @@ const Form = (props: Props) => {
   const router = useRouter();
   const onSubmit = async (data: PasswordRecovery) => {
     const { userEmail } = data;
-
     try {
       await passwordRecovery(userEmail);
       setTimeout(() => {
         router.push('/');
       }, 3000);
-    } catch (error) {
+    } catch (error:any) {
+      toast.error(error.message)
     }
   };
   return (
@@ -42,7 +42,7 @@ const Form = (props: Props) => {
         <Input
           variant="faded"
           label="Email"
-          placeholder="e.g samueljackson95@gmail.com"
+          placeholder="e.g akeye@gmail.com"
           type="text"
           labelPlacement="outside"
           isRequired
