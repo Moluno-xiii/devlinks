@@ -11,7 +11,7 @@ const UserLinks = (props: Props) => {
   const { user } = useSelector(
     (state: RootState) => state.auth
   );
-  const { data, isLoading, error } = useLinksQuery(user.$id);
+  const { data, isLoading, error } = useLinksQuery(user?.$id);
   if (isLoading) return <Loader />;
   if (error) return <p className="text-error">{error.message}</p>
   return (

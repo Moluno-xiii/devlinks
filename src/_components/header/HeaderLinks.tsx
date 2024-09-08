@@ -23,7 +23,7 @@ const HeaderLinks: React.FC = () => {
         )}
       >
         <FiLink height={15.63} width={15.63} />
-        <span className="hidden font-semibold sm:inline-block">Links</span>
+        <span className="hidden font-semibold sm:block">Links</span>
       </Link>
 
       <Link
@@ -36,7 +36,7 @@ const HeaderLinks: React.FC = () => {
         )}
       >
         <FaUser height={15.63} width={15.63} />
-        <span className="hidden font-semibold capitalize sm:inline-block">
+        <span className="hidden font-semibold capitalize sm:block">
           Profile Details
         </span>
       </Link>

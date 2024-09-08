@@ -19,7 +19,7 @@ const Header: React.FC = () => {
       {links.total >= 1 && (
         <>
           <Button
-            className="hidden sm:inline-block"
+            className="hidden md:block"
             variant="ghost"
             aria-label="route to preview page"
             color="primary"
@@ -28,7 +28,7 @@ const Header: React.FC = () => {
             <Link href={`/preview/${user?.$id}`}>Preview</Link>
           </Button>
           <Button
-            className="flex sm:hidden"
+            className="flex md:hidden"
             variant="ghost"
             aria-label="Route to preview page"
             color="primary"

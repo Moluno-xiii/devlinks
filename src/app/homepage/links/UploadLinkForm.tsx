@@ -108,7 +108,10 @@ const UploadLinkForm = ({ onCloseAddLink }: Props) => {
     mutationFn : uploadLink,
     onSuccess : () => {
       queryClient.invalidateQueries({
-        queryKey : ["fetchLinks"]
+        queryKey : ["fetchLinks"],
+      })
+      queryClient.invalidateQueries({
+        queryKey : ["getLinks"],
       })
       toast.success("Link added successfully")
     },

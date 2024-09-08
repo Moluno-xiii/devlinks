@@ -7,7 +7,7 @@ type Props = {};
 const queryClient = new QueryClient({
   defaultOptions : {
     queries : {
-      staleTime : 0
+      staleTime : Infinity
     }
   }
 });

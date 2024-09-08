@@ -7,7 +7,7 @@ import Header from "./Header";
 const queryClient = new QueryClient({
   defaultOptions : {
     queries : {
-      staleTime : 0
+      staleTime : Infinity,
     }
   }
 });
