@@ -21,9 +21,7 @@ function Page({}: Props) {
     onSuccess: () => {
       dispatch(setUser(null));
       toast.success('Logout successful');
-      setTimeout(() => {
         router.push('/');
-      }, 3000);
     },
     onError: (err) => toast.error(err.message),
   });

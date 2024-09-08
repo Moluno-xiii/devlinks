@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useLinksQuery } from "@/hooks/useLinksQuery";
-import Loader from "@/components/UI/Loader";
+import Loader from "@/_components/UI/Loader";
 
 const HomePage: React.FC = () => {
   const handleOpenLinks = () => {

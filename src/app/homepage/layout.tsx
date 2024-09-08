@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import Header from '../../components/UI/Header';
+import Header from '../../_components/UI/Header';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loader from '@/components/UI/Loader';
+import Loader from '@/_components/UI/Loader';
 
 const queryClient = new QueryClient({
   defaultOptions : {

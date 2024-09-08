@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { IoLockClosed, IoMail } from 'react-icons/io5';
 import { Button, Input } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
-import FormValidationError from '@/components/UI/FormValidationError';
+import FormValidationError from '@/_components/UI/FormValidationError';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
@@ -95,7 +95,7 @@ const LoginForm = (props: Props) => {
           disabled={isPending}
           isRequired
           labelPlacement="outside"
-          description="e.g adekola@gmail.com"
+          description="e.g enomavictor@gmail.com"
           variant="faded"
           endContent={<IoMail />}
           {...register('email', {

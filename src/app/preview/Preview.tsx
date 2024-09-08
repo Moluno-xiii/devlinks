@@ -5,7 +5,7 @@ import ButtonLink from "./ButtonLink";
 import Header from "./Header";
 import { useSelector } from "react-redux";
 import { getLinks } from "@/utils/links_utils/link_functions";
-import Loader from "@/components/UI/Loader";
+import Loader from "@/_components/UI/Loader";
 import { getAvatar } from "../store/authSlice/authServices";
 import { useQuery } from "@tanstack/react-query";
 import { RootState } from "../store/store";
@@ -29,12 +29,12 @@ const Preview = ({ userId }: Props) => {
   const { user } = useSelector((state: RootState) => state.auth);
 
   if (isLoading || isLoadingLinks) return <Loader />;
-  if (error || linkErrorMessage)
-    return (
-      <div className="text-error">
-        {error ? error.message : linkErrorMessage?.message}
-      </div>
-    )
+  // if (error || linkErrorMessage)
+    // return (
+    //   <div className="text-error">
+    //     {error ? error.message : linkErrorMessage?.message}
+    //   </div>
+    // )
 
   return (
     <div className="flex flex-col items-center justify-center p-4">

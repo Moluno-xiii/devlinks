@@ -3,7 +3,7 @@ import React from 'react';
 import { IoLockClosed, IoMail } from 'react-icons/io5';
 import { Button, Input } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
-import FormValidationError from '@/components/UI/FormValidationError';
+import FormValidationError from '@/_components/UI/FormValidationError';
 import { FaUserAlt } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/navigation';
@@ -54,7 +54,7 @@ const CreateAccountForm = (props: Props) => {
         label="Email"
         endContent={<IoMail />}
         type="text"
-        description="e.g akeye@gmail.com"
+        description="e.g akhereonosetale@gmail.com"
         labelPlacement="outside"
         isRequired
         {...register('email', {

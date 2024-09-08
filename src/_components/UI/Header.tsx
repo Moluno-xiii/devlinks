@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@nextui-org/react';
-import HeaderLinks from '@/components/header/HeaderLinks';
-import HeaderLogo from '@/components/header/HeaderLogo';
+import HeaderLinks from '@/_components/header/HeaderLinks';
+import HeaderLogo from '@/_components/header/HeaderLogo';
 import { MdRemoveRedEye } from 'react-icons/md';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
