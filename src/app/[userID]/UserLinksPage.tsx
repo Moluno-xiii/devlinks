@@ -28,7 +28,7 @@ const UserLinksPage = ({ userId }: Props) => {
   const { user } = useSelector((state: RootState) => state.auth);
 
   if (isLoading || isLoadingLinks) return <Loader />;
-  if (error || linkErrorMessage)
+  if (linkErrorMessage)
     return (
       <div className="text-error">
         {error ? error.message : linkErrorMessage?.message}
