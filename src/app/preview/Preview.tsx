@@ -30,11 +30,11 @@ const Preview = ({ userId }: Props) => {
 
   if (isLoading || isLoadingLinks) return <Loader />;
   // if (error || linkErrorMessage)
-    return (
-      <div className="text-error">
-        {error ? error.message : linkErrorMessage?.message}
-      </div>
-    )
+    // return (
+    //   <div className="text-error">
+    //     {error ? error.message : linkErrorMessage?.message}
+    //   </div>
+    // )
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
