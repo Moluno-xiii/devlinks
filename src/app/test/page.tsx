@@ -1,42 +1,19 @@
-"use client";
-import { Button, Select, SelectItem } from "@nextui-org/react";
-import React from "react";
-import { FaGithub } from "react-icons/fa";
+import { getLinks } from '@/utils/links_utils/link_functions';
+import React, { Suspense } from 'react';
+import Test from './Test';
+import Spinner from './spinner';
 
 type Props = {};
-const animals = [
-  { key: "cat", label: "Cat" },
-  { key: "dog", label: "Dog" },
-  { key: "rabbit", label: "Rabbit" },
-  { key: "hamster", label: "Hamster" },
-  { key: "parrot", label: "Parrot" },
-];
 
-const page = (props: Props) => {
+const Page = async (props: Props) => {
   return (
     <div>
-      <Select
-        className="max-w-xs"
-        defaultSelectedKeys={["cat"]}
-        label="Favorite Animal"
-        placeholder="Select an animal"
-        startContent={<FaGithub />}
-      >
-        {animals.map((animal) => (
-          <SelectItem key={animal.key}>{animal.label}</SelectItem>
-        ))}
-      </Select>
-      <Button size="lg" color="primary">
-        Click me
-      </Button>
-      <Button color="default">Default</Button>
-      <Button color="primary">Primary</Button>
-      <Button color="secondary">Secondary</Button>
-      <Button color="success">Success</Button>
-      <Button color="warning">Warning</Button>
-      <Button color="danger">Danger</Button>
+      <p>there should be no suspense on this part of the component</p>
+      <Suspense fallback={<Spinner />}>
+        <Test />
+      </Suspense>
     </div>
   );
 };
 
-export default page;
+export default Page;

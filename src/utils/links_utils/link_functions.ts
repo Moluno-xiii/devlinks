@@ -2,7 +2,6 @@ import { CreateLink, EditLink } from "@/types";
 import { collection_id, database_id, databases } from "../../../appwrite";
 import { ID, Query } from "appwrite";
 import { toast } from "react-toastify";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import { store } from "@/app/store/store";
 import { setLoadingState } from "@/app/store/linkSlice/linkSlice";
 
@@ -28,26 +27,11 @@ async function getLinks(userId : string) {
       collection_id as string,
       [Query.equal("userId", userId)],
     );
+    await new Promise((res) => setTimeout(res, 3000));
     return result;
   } catch (error: any) {
   }
 }
-
-const fetchLinks = createAsyncThunk(
-  "link/fetchLinks",
-  async (userId: string, { dispatch, rejectWithValue }) => {
-    try {
-      const result = await databases.listDocuments(
-        database_id as string,
-        collection_id as string,
-        [Query.equal("userId", userId)],
-      );
-      return result;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  },
-);
 
 async function patchLink(document_id: string, data: EditLink ) {
   try {
@@ -82,4 +66,4 @@ async function deleteLink(document_id: string) {
   }
 }
 
-export { uploadLink, getLinks, fetchLinks, patchLink, deleteLink };
+export { uploadLink, getLinks, patchLink, deleteLink };
