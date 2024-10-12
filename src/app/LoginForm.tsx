@@ -66,13 +66,11 @@ const LoginForm = (props: Props) => {
     try {
       if (user) {
         // if (user && user.emailVerification === true) {
-        setTimeout(() => {
           router.push('/homepage');
-        }, 3000);
         toast.success('Login successful');
-      } else {
-        toast.error('No active session');
-      }
+       } // else {
+      //   toast.error('No active session');
+      // }
     } catch (error: any) {
       toast.error(error.message);
     }

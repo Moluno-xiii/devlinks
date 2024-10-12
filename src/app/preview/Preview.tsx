@@ -3,17 +3,18 @@ import { Avatar } from "antd";
 import React from "react";
 import ButtonLink from "./ButtonLink";
 import Header from "./Header";
-import { useSelector } from "react-redux";
 import { getLinks } from "@/utils/links_utils/link_functions";
 import Loader from "@/_components/UI/Loader";
 import { getAvatar } from "../store/authSlice/authServices";
 import { useQuery } from "@tanstack/react-query";
-import { RootState } from "../store/store";
 
 type Props = {
   userId: string;
 };
 const Preview = ({ userId }: Props) => {
+  // const { data : cachedLinks, isLoading: loadingCachedLinks, error : cachedLinksError } = useQuery({
+  //   queryKey : ["fetchLinks"]
+  // });
   const { isLoading, error, data } = useQuery({
     queryKey: ["profilePic", userId],
     queryFn: () => getAvatar(userId),
@@ -26,15 +27,14 @@ const Preview = ({ userId }: Props) => {
     queryKey: ["getLinks", userId],
     queryFn: () => getLinks(userId),
   });
-  const { user } = useSelector((state: RootState) => state.auth);
 
   if (isLoading || isLoadingLinks) return <Loader />;
-  // if (error || linkErrorMessage)
-    // return (
-    //   <div className="text-error">
-    //     {error ? error.message : linkErrorMessage?.message}
-    //   </div>
-    // )
+  if (linkErrorMessage)
+    return (
+      <div className="text-error">
+        {error ? error.message : linkErrorMessage?.message}
+      </div>
+    )
 
   return (
     <div className="flex flex-col items-center justify-center p-4">

@@ -15,7 +15,7 @@ import Loader from '@/_components/UI/Loader';
 const queryClient = new QueryClient({
   defaultOptions : {
     queries : {
-      staleTime : 0
+      staleTime : Infinity
     }
   }
 });
@@ -44,7 +44,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     }
   }, [isAuthChecked, user, router]);
 
-  if (loading || !isAuthChecked) return <Loader />;
+  // if (!isAuthChecked || loading) return <Loader />;
 
   return (
     <QueryClientProvider client={queryClient}>
